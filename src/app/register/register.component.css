@@ -1,0 +1,36 @@
+.simlink:hover {
+    color: #0000ff;
+    cursor: pointer;
+}
+
+.login-card {
+  width: 400px;
+  margin: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-title {
+    margin: auto;    
+    font: bold;
+    text-shadow: none;
+}
+
+.register-button {
+    width: 50%;
+    text-align: center;
+}
+
+.input-boxes {
+    width: 100%;
+    padding-top: 10px;
+    margin: auto;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
