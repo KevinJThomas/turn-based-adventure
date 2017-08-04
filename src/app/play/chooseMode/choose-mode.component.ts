@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./choose-mode.component.css']
 })
 export class ChooseModeComponent {
+    imgUrl = '../../assets/knight_shield1600.png';
 }
