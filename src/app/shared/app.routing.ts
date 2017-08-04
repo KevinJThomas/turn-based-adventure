@@ -5,6 +5,8 @@ import { HomeComponent } from '../home/home.component';
 import { LoginComponent } from '../login/login.component';
 import { ErrorComponent } from '../error/error.component';
 import { RegisterComponent } from '../register/register.component';
+import { InstructionsComponent } from '../instructions/instructions.component';
+import { OptionsComponent } from '../options/options.component';
 
 import { AppService } from '../shared/app.service';
 
@@ -14,6 +16,8 @@ import { AppService } from '../shared/app.service';
             { path: '' , component: HomeComponent, canActivate: [AppService] },
             { path: 'login' , component: LoginComponent },
             { path: 'register' , component: RegisterComponent },
+            { path: 'instructions' , component: InstructionsComponent, canActivate: [AppService] },
+            { path: 'options' , component: OptionsComponent, canActivate: [AppService] },
             { path: '**' , component: ErrorComponent }            
         ])
     ],

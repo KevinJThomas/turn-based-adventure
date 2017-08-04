@@ -19,6 +19,22 @@ export class AppService implements CanActivate {
         return this.verifyLogin();
     }
 
+    getUserId(): string {
+        this.authUser = firebase.auth().currentUser;
+
+        if (this.authUser) {
+            return this.authUser.uid;
+        } else {
+            return Array['Unknown User']; // TODO: Handle this case
+        }
+    }
+
+    getUserEmail() {
+        if (this.authUser) {
+            return this.authUser.email;
+        }
+    }
+
     verifyLogin(): boolean {
         if (this.userLoggedIn) { return true }
 
