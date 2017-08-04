@@ -15,9 +15,14 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './error/error.component';
 import { RegisterComponent } from './register/register.component';
+import { NavComponent } from './shared/navbar/navbar.component';
+import { InstructionsComponent } from './instructions/instructions.component';
+import { OptionsComponent } from './options/options.component';
 import { AppRoutingModule } from './shared/app.routing';
 
 import { AppService } from './shared/app.service';
+
+import { PlayModule } from './play/play.module';
 
 import * as firebase from 'firebase';
 import 'hammerjs';
@@ -28,7 +33,9 @@ import 'hammerjs';
     HomeComponent,
     LoginComponent,
     ErrorComponent,
-    RegisterComponent
+    RegisterComponent,
+    InstructionsComponent,
+    OptionsComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +47,7 @@ import 'hammerjs';
     MdInputModule,
     MdCardModule,
     MdToolbarModule,
+    PlayModule,
     AppRoutingModule
   ],
   providers: [

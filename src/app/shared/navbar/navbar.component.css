@@ -1,0 +1,14 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar {
+    height: 20px;
+    border-radius: 10px;
+}
+
+.mini-img {
+  height: 45px;
+  width: 45px;
+  cursor: pointer;
+}
