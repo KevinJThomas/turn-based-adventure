@@ -1,3 +1,23 @@
 <app-nav-bar></app-nav-bar>
 
-instructions
+<div class="about-page">
+    <h1 class="title">Instructions</h1>
+
+    <div class="instruction-text">
+        Prestige is a turn-based combat game where players are required to use strategy to out maneuver their opponents to victory.
+    </div>
+    <div class="instruction-text">
+        There are two modes a player can choose to play in: Story Mode or The Arena. In story mode you will play through a sequence of differing opponents,
+        picking up new heroes and abilities along the way. Alternatively, players can choose to play in the arena,
+        where they will be faced with wave after wave of enemies until their team is destroyed.
+    </div>
+    <div class="learn-more">
+        LEARN MORE
+    </div>
+    <div class="learn-button-row">
+        <button md-raised-button class="learn-button" [routerLink]="['/learn-story']">Story Mode</button>
+        <button md-raised-button class="learn-button" [routerLink]="['/learn-arena']">The Arena</button>
+    </div>
+
+    <button md-raised-button class="tutorial-button" [routerLink]="['/play/tutorial']">Play Tutorial</button>
+</div>

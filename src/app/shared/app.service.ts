@@ -16,7 +16,8 @@ export class AppService implements CanActivate {
     constructor(private router: Router) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        return this.verifyLogin();
+        // return this.verifyLogin();
+        return true;
     }
 
     getUserId(): string {

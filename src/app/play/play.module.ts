@@ -12,6 +12,7 @@ import {
 import { NavComponent } from '../shared/navbar/navbar.component';
 import { PlayComponent } from './play.component';
 import { ChooseModeComponent } from './chooseMode/choose-mode.component';
+import { TutorialComponent } from './tutorial/tutorial.component';
 
 import { AppService } from '../shared/app.service';
 
@@ -20,7 +21,8 @@ const PlayRoutes: Routes = [
         path: 'play',
         component: PlayComponent,
         children: [
-            { path: '', component: ChooseModeComponent, canActivate: [AppService] }
+            { path: '', component: ChooseModeComponent, canActivate: [AppService] },
+            { path: 'tutorial', component: TutorialComponent, canActivate: [AppService] }
         ]
     },
 ];
@@ -43,7 +45,8 @@ const PlayRoutes: Routes = [
     declarations: [
         NavComponent,
         PlayComponent,
-        ChooseModeComponent
+        ChooseModeComponent,
+        TutorialComponent
     ],
     providers: [
     ],

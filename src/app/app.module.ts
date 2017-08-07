@@ -18,6 +18,8 @@ import { RegisterComponent } from './register/register.component';
 import { NavComponent } from './shared/navbar/navbar.component';
 import { InstructionsComponent } from './instructions/instructions.component';
 import { OptionsComponent } from './options/options.component';
+import { LearnArenaComponent } from './instructions/learnArena/learn-arena.component';
+import { LearnStoryComponent } from './instructions/learnStory/learn-story.component';
 import { AppRoutingModule } from './shared/app.routing';
 
 import { AppService } from './shared/app.service';
@@ -35,6 +37,8 @@ import 'hammerjs';
     ErrorComponent,
     RegisterComponent,
     InstructionsComponent,
+    LearnArenaComponent,
+    LearnStoryComponent,
     OptionsComponent
   ],
   imports: [

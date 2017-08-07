@@ -1,0 +1,44 @@
+.about-page {
+    width: 80%;
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.title {
+    text-align: center;
+}
+
+.instruction-text {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.tutorial-button {
+    margin: auto;
+    display: block;
+    margin-top: 70px;
+    border-radius: 10px;
+    width: 15%;
+}
+
+.learn-more {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 80px;
+}
+
+.learn-button-row {
+    margin: auto;
+    text-align: center;
+}
+
+.learn-button {
+    width: 15%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
