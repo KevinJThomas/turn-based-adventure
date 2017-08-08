@@ -58,7 +58,9 @@ export class AppService implements CanActivate {
                 id: newUser.key,
                 email: this.authUser.email,
                 uid: this.authUser.uid,
-                username: username
+                username: username,
+                muteSound: false,
+                showNameplates: true
             });
         }
     }
@@ -86,5 +88,13 @@ export class AppService implements CanActivate {
         }, function(error) {
             alert(`${error.message} Unable to logout. Please try again!`) // using alerts for testing, change to something else later
         });
+    }
+
+    updateOptions(user: any) {
+        firebase.database().ref('users/').child(user.id)
+            .update({
+                muteSound: user.muteSound,
+                showNameplates: user.showNameplates
+            });
     }
 }

@@ -1,0 +1,21 @@
+.options-list {
+    width: 35%;
+    margin: auto;
+    margin-top: 10%;
+    text-align: center;
+}
+
+h3 {
+    margin-top: 35px;
+}
+
+.button-div {
+    margin: auto;
+    text-align: center;
+}
+
+.options-button {
+    width: 17%;
+    margin-top: 35px;
+    border-radius: 10px;
+}
