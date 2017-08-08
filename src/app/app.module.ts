@@ -7,7 +7,9 @@ import {
   MdButtonModule,
   MdInputModule,
   MdCardModule,
-  MdToolbarModule
+  MdToolbarModule,
+  MdCheckboxModule,
+  MdListModule
 } from '@angular/material';
 
 import { AppComponent } from './start/app.component';
@@ -51,6 +53,8 @@ import 'hammerjs';
     MdInputModule,
     MdCardModule,
     MdToolbarModule,
+    MdCheckboxModule,
+    MdListModule,
     PlayModule,
     AppRoutingModule
   ],
