@@ -1,3 +1,44 @@
 <app-nav-bar></app-nav-bar>
 
-tutorial
+<div *ngIf="!isBattleFinished">
+    <div class="enemy-hero">
+        {{theGame.enemy[0].name}}
+    </div>
+    <div class="stats">
+        H: {{theGame.enemy[0].currentHealth}} / {{theGame.enemy[0].maxHealth}}
+    </div>
+    <div class="stats">
+        E: {{theGame.enemy[0].currentEnergy}} / {{theGame.enemy[0].maxEnergy}}
+    </div>
+
+    <button [disabled]="ready === false || showError === true ? true : null" md-button class="battle-button" (click)="executeTurn()">Battle!</button>
+
+    <div class="player-hero">
+        {{theGame.player[0].name}}
+    </div>
+    <div class="stats">
+        H: {{theGame.player[0].currentHealth}} / {{theGame.player[0].maxHealth}}
+    </div>
+    <div class="stats">
+        E: {{theGame.player[0].currentEnergy}} / {{theGame.player[0].maxEnergy}}
+    </div>
+    <md-select placeholder="Select an Action" class="player-abilities" *ngIf="turnActive">
+        <md-option *ngFor="let ability of theGame.player[0].abilities" [value]="ability" 
+        (click)="targetableAbilitySelected(theGame.player[0], ability)">
+            ({{ability.cost}}) {{ability.name}} - P:{{ability.power}}
+        </md-option>
+    </md-select>
+    <md-select *ngIf="targetableAbility" placeholder="Select a Target" class="player-abilities">    
+        <md-option *ngFor="let target of theGame.enemy" [value]="target" (click)="setReady(theGame.player[0], target)">
+            {{target.name}}
+        </md-option>
+    </md-select>
+    <div *ngIf="showError" class="error-message">Not enough energy</div>
+</div>
+
+<div class="game-over" [ngSwitch]="isBattleFinished">
+    <div *ngSwitchCase="0"></div>    
+    <h1 *ngSwitchCase="1">Tie Game</h1>
+    <h1 *ngSwitchCase="2">You Win!</h1>
+    <h1 *ngSwitchCase="3">Game Over</h1>
+</div>
