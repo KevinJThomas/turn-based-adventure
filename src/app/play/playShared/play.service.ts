@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { Heroes } from '../../shared/app.heroes';
 import { WinConditions } from './play.win-conditions';
 import { Scenarios } from './play.scenarios';
+import { PlayDialogComponent } from '../playShared/playDialog/play-dialog.component';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -14,7 +16,7 @@ export class PlayService {
     playerActions = [];
     enemyActions = [];
 
-    constructor(private scenarios: Scenarios) {}
+    constructor(private scenarios: Scenarios, private dialog: MdDialog) {}
 
     newTutorial(): Observable<any[]> {
         this.theGame = this.scenarios.tutorial();
@@ -166,17 +168,16 @@ export class PlayService {
 
     getRandomNumber(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+    }    
 
-    async writeText(text: string, target: any) {
-        target = '';
-        for (let char of text) {
-            target += char;
-            await this.sleep(50);
-        }
-    }
+    openDialog(pages: string[]): Observable<boolean> {
+        let dialogRef: MdDialogRef<PlayDialogComponent>;
 
-    sleep(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        dialogRef = this.dialog.open(PlayDialogComponent);
+        dialogRef.disableClose = true;
+        dialogRef.updateSize('500px', '300px');
+        dialogRef.componentInstance.dialogPages = pages;
+
+        return dialogRef.afterClosed();
     }
 }

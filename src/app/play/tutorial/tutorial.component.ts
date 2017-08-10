@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog } from '@angular/material';
 
 import { Heroes } from '../../shared/app.heroes';
 import { WinConditions } from '../playShared/play.win-conditions';
 import { PlayService } from '../playShared/play.service';
+import { Dialogs } from '../playShared/play.dialogs';
 
 @Component({
     templateUrl: './tutorial.component.html',
@@ -16,7 +18,9 @@ export class TutorialComponent implements OnInit {
     turnActive = true;
     isBattleFinished = WinConditions.InProgress;
 
-    constructor(private playSVC: PlayService) {}
+    constructor(private playSVC: PlayService, private dialog: MdDialog, private dialogs: Dialogs) {
+        this.playSVC.openDialog(this.dialogs.tutorialIntro());
+    }
 
     ngOnInit() {
         this.playSVC.newTutorial()
@@ -46,8 +50,12 @@ export class TutorialComponent implements OnInit {
             this.targetableAbility = false;
             this.ready = false;
             this.turnActive = false;
-            await this.playSVC.sleep(0);
+            await this.sleep(0);
             this.turnActive = true;
         }     
+    }
+
+    sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
