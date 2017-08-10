@@ -1,0 +1,21 @@
+.main-content {
+    text-align: center;
+    height: 200px;
+}
+
+.nav-button {
+    border-radius: 10px;
+    width: 30%;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.skip-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

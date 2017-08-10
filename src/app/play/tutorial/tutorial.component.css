@@ -49,3 +49,11 @@ md-option {
     font-weight: bold;
     margin-top: 10%;
 }
+
+.continue-button {
+    margin: auto;
+    display: block;
+    width: 10%;
+    margin-top: 75px;
+    border-radius: 10px;
+}

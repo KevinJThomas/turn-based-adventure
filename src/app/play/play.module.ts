@@ -7,17 +7,20 @@ import {
     MdInputModule,
     MdCardModule,
     MdToolbarModule,
-    MdSelectModule
+    MdSelectModule,
+    MdDialogModule
   } from '@angular/material';
 
 import { NavComponent } from '../shared/navbar/navbar.component';
 import { PlayComponent } from './play.component';
 import { ChooseModeComponent } from './chooseMode/choose-mode.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
+import { PlayDialogComponent } from './playShared/playDialog/play-dialog.component';
 
 import { AppService } from '../shared/app.service';
 import { PlayService } from './playShared/play.service';
 import { Scenarios } from './playShared/play.scenarios';
+import { Dialogs } from './playShared/play.dialogs';
 
 const PlayRoutes: Routes = [
     {
@@ -40,6 +43,7 @@ const PlayRoutes: Routes = [
         MdCardModule,
         MdToolbarModule,
         MdSelectModule,
+        MdDialogModule,
         RouterModule.forChild(PlayRoutes)
     ],
     exports: [
@@ -50,13 +54,16 @@ const PlayRoutes: Routes = [
         NavComponent,
         PlayComponent,
         ChooseModeComponent,
-        TutorialComponent
+        TutorialComponent,
+        PlayDialogComponent
     ],
     providers: [
         PlayService,
-        Scenarios
+        Scenarios,
+        Dialogs
     ],
     entryComponents: [
+        PlayDialogComponent
     ]
 })
 
