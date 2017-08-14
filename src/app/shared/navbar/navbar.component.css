@@ -1,5 +1,5 @@
 .spacer {
-  flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 
 .toolbar {
@@ -8,7 +8,11 @@
 }
 
 .mini-img {
-  height: 45px;
-  width: 45px;
-  cursor: pointer;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+}
+
+.logout-button {
+    border-radius: 10px;
 }

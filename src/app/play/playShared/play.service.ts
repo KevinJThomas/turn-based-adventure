@@ -5,6 +5,7 @@ import { Heroes } from '../../shared/app.heroes';
 import { WinConditions } from './play.win-conditions';
 import { Scenarios } from './play.scenarios';
 import { PlayDialogComponent } from '../playShared/playDialog/play-dialog.component';
+import { HeroDialogComponent } from '../playShared/heroDialog/hero-dialog.component';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -20,6 +21,7 @@ export class PlayService {
 
     newTutorial(): Observable<any[]> {
         this.theGame = this.scenarios.tutorial();
+        this.theGame.playByPlay = '';
         
         return Observable.of(this.theGame);
     }
@@ -78,8 +80,8 @@ export class PlayService {
         }
     }
 
-    battle() {
-        for (let action of this.playerActions) {
+    async battle() {
+        for (let action of this.playerActions) {            
             switch (action.ability.typeIndex) {
                 case 0: {
                     this.damageAbility(action);
@@ -89,10 +91,11 @@ export class PlayService {
                     console.log('ERROR: Default in player.service.ts.battle() hit');
                 }
             }
+            await this.sleep(1600);
         }
     }
 
-    enemyTurn(): number {
+    async enemyTurn() {
         for (let enemy of this.theGame.enemy) {
             this.enemyActions.push({
                 hero: enemy,
@@ -101,7 +104,7 @@ export class PlayService {
             });
         }
 
-        for (let action of this.enemyActions) {
+        for (let action of this.enemyActions) {            
             switch (action.ability.typeIndex) {
                 case 0: {
                     this.damageAbility(action);
@@ -111,10 +114,9 @@ export class PlayService {
                     console.log('ERROR: Default in player.service.ts.battle() hit');
                 }
             }
+            await this.sleep(1600);
         }
         this.enemyActions = [];
-
-        return this.isBattleFinished();
     }
 
     isBattleFinished(): number {
@@ -149,7 +151,8 @@ export class PlayService {
         action.hero.currentEnergy -= action.ability.cost;
         action.target.currentHealth -= action.ability.power;
         this.checkDeath();
-        console.log(action.hero.name + ' casts ' + action.ability.name + ' on ' + action.target.name);
+        this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
+            ' on ' + action.target.name + '\n' +  this.theGame.playByPlay;
     }
 
     checkDeath() {
@@ -179,5 +182,19 @@ export class PlayService {
         dialogRef.componentInstance.dialogPages = pages;
 
         return dialogRef.afterClosed();
+    }
+
+    openHeroDialog(hero: any): Observable<boolean> {
+        let dialogRef: MdDialogRef<HeroDialogComponent>;
+
+        dialogRef = this.dialog.open(HeroDialogComponent);
+        dialogRef.updateSize('500px', '300px');
+        dialogRef.componentInstance.hero = hero;
+
+        return dialogRef.afterClosed();
+    }
+
+    sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }

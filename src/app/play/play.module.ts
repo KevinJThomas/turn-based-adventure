@@ -8,7 +8,9 @@ import {
     MdCardModule,
     MdToolbarModule,
     MdSelectModule,
-    MdDialogModule
+    MdDialogModule,
+    MdListModule,
+    MdTooltipModule
   } from '@angular/material';
 
 import { NavComponent } from '../shared/navbar/navbar.component';
@@ -16,11 +18,13 @@ import { PlayComponent } from './play.component';
 import { ChooseModeComponent } from './chooseMode/choose-mode.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { PlayDialogComponent } from './playShared/playDialog/play-dialog.component';
+import { HeroDialogComponent } from './playShared/heroDialog/hero-dialog.component';
 
 import { AppService } from '../shared/app.service';
 import { PlayService } from './playShared/play.service';
 import { Scenarios } from './playShared/play.scenarios';
 import { Dialogs } from './playShared/play.dialogs';
+import { TwoDigitPipe } from './playShared/two-digit.pipe';
 
 const PlayRoutes: Routes = [
     {
@@ -44,9 +48,12 @@ const PlayRoutes: Routes = [
         MdToolbarModule,
         MdSelectModule,
         MdDialogModule,
+        MdListModule,
+        MdTooltipModule,
         RouterModule.forChild(PlayRoutes)
     ],
     exports: [
+        TwoDigitPipe,
         RouterModule,
         NavComponent
     ],
@@ -55,7 +62,9 @@ const PlayRoutes: Routes = [
         PlayComponent,
         ChooseModeComponent,
         TutorialComponent,
-        PlayDialogComponent
+        PlayDialogComponent,
+        HeroDialogComponent,
+        TwoDigitPipe
     ],
     providers: [
         PlayService,
@@ -63,7 +72,8 @@ const PlayRoutes: Routes = [
         Dialogs
     ],
     entryComponents: [
-        PlayDialogComponent
+        PlayDialogComponent,
+        HeroDialogComponent
     ]
 })
 

@@ -1,0 +1,23 @@
+.hero-name {
+    text-align: center;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.mat-list >  .mat-list-item:nth-child(2n+1) {
+  background-color: rgba(232,232,238, .25);  
+}
+
+.mat-list >  .mat-list-item:nth-child(2n) {  
+  background-color:white;
+}
+
+.mat-list-item {
+    border-radius: 10px;
+}
+
+.ability-description:hover {
+    cursor: default;
+}
