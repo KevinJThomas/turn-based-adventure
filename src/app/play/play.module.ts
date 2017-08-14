@@ -17,6 +17,9 @@ import { NavComponent } from '../shared/navbar/navbar.component';
 import { PlayComponent } from './play.component';
 import { ChooseModeComponent } from './chooseMode/choose-mode.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
+import { NewStoryComponent } from './newStory/new-story.component';
+import { ContinueStoryComponent } from './continueStory/continue-story.component';
+import { TheArenaComponent } from './theArena/the-arena.component';
 import { PlayDialogComponent } from './playShared/playDialog/play-dialog.component';
 import { HeroDialogComponent } from './playShared/heroDialog/hero-dialog.component';
 
@@ -32,6 +35,9 @@ const PlayRoutes: Routes = [
         component: PlayComponent,
         children: [
             { path: '', component: ChooseModeComponent, canActivate: [AppService] },
+            { path: 'new-story', component: NewStoryComponent, canActivate: [AppService] },
+            { path: 'continue-story', component: ContinueStoryComponent, canActivate: [AppService] },
+            { path: 'the-arena', component: TheArenaComponent, canActivate: [AppService] },
             { path: 'tutorial', component: TutorialComponent, canActivate: [AppService] }
         ]
     },
@@ -62,6 +68,9 @@ const PlayRoutes: Routes = [
         PlayComponent,
         ChooseModeComponent,
         TutorialComponent,
+        NewStoryComponent,
+        ContinueStoryComponent,
+        TheArenaComponent,
         PlayDialogComponent,
         HeroDialogComponent,
         TwoDigitPipe
