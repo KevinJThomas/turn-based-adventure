@@ -21,12 +21,14 @@ export class Scenarios {
                     name: 'Bash',
                     typeIndex: 0,
                     power: 5,
-                    cost: 10
+                    cost: 10,
+                    description: 'Bash an enemy'
                 }, {
                     name: 'Slice',
                     typeIndex: 0,
                     power: 4,
-                    cost: 5
+                    cost: 5,
+                    description: 'Slice an enemy'
                 }]
             }],
             enemy: [{
@@ -34,8 +36,8 @@ export class Scenarios {
                 name: 'Bruiser',
                 maxHealth: 10,
                 currentHealth: 10,
-                maxEnergy: 100,
-                currentEnergy: 100,
+                maxEnergy: 50,
+                currentEnergy: 50,
                 strength: 5,
                 agility: 5,
                 alive: true,

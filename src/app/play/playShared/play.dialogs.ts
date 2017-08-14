@@ -13,10 +13,18 @@ export class Dialogs {
             `Each hero also starts with a couple basic abilities. As that hero levels up, they will be able to learn more abilties
             (depending on their total level and stat levels). There are many types of abilities, including offensive (damage),
             defensive (healing), and utility (buffing).`,
-            `Each ability has an energy cost. It will be displayed on the left of the ability list in parentheses. Each heroes
+            `Each ability has an energy cost. It will be displayed on the left of the ability list in parentheses. Each heroes'
             current/max energy (E) and current/max health (H) will be displayed underneath their name on the battlefield.`,
             `For this tutorial, you will face a few different opponents. They will get progressively harder so that you can learn while you go.`,
             `You first battle will be a 1v1. You are controlling Zed, a deadly ninja. Your opponent is Bruiser, good luck!`
+        ]
+    }
+
+    tutorialFirstTurn(): string[] {
+        return [
+            `You've completed your first turn, good job! You'll notice you can see the energy and health that was lost from both heroes
+            displayed under their nameplates.`,
+            `Now keep up fight against Bruiser! I can see him getting weaker!`
         ]
     }
 }

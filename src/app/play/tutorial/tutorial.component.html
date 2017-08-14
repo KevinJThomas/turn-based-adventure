@@ -10,10 +10,10 @@
     <div class="stats">
         E: {{theGame.enemy[0].currentEnergy}} / {{theGame.enemy[0].maxEnergy}}
     </div>
+    
+    <textarea readonly class="play-by-play">{{theGame.playByPlay}}</textarea>
 
-    <button [disabled]="ready === false || showError === true ? true : null" md-button class="battle-button" (click)="executeTurn()">Battle!</button>
-
-    <div class="player-hero">
+    <div class="player-hero" (click)="openHeroDialog(theGame.player[0])">
         {{theGame.player[0].name}}
     </div>
     <div class="stats">
@@ -34,6 +34,8 @@
         </md-option>
     </md-select>
     <div *ngIf="showError" class="error-message">Not enough energy</div>
+    <button [disabled]="ready === false || showError === true ? true : null"
+    md-button class="battle-button" (click)="executeTurn()">Battle!</button>
 </div>
 
 <div class="game-over" [ngSwitch]="isBattleFinished">
