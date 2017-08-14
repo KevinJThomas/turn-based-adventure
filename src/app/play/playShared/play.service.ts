@@ -22,7 +22,6 @@ export class PlayService {
     newTutorial(): Observable<any[]> {
         this.theGame = this.scenarios.tutorial();
         this.theGame.playByPlay = '';
-        console.log(this.theGame);
         
         return Observable.of(this.theGame);
     }
@@ -37,7 +36,6 @@ export class PlayService {
     }
 
     setAbility(player: any, ability: any) {
-        console.log(this.theGame, player, ability);
         let index = -1;
         for (let hero of this.theGame.player) {
             if (hero.id === player.id) {
@@ -150,14 +148,11 @@ export class PlayService {
     }
 
     damageAbility(action: any) {
-        console.log(action);
         action.hero.currentEnergy -= action.ability.cost;
         action.target.currentHealth -= action.ability.power;
-        console.log(action);
         this.checkDeath();
         this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
             ' on ' + action.target.name + '\n' +  this.theGame.playByPlay;
-        console.log(action);
     }
 
     checkDeath() {

@@ -31,7 +31,6 @@ export class TutorialComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscriptions.push(this.playSVC.newTutorial()
             .subscribe(theGame => this.theGame = theGame));
-        console.log(this.theGame);
     }
 
     ngOnDestroy() {
