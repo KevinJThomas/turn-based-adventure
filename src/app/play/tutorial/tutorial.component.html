@@ -45,4 +45,4 @@
     <h1 *ngSwitchCase="3">Game Over</h1>
 </div>
 
-<button md-raised-button class="continue-button" *ngIf="isBattleFinished != 0">Continue</button>
+<button md-raised-button class="continue-button" *ngIf="isBattleFinished != 0" [routerLink]="['/play']">Continue</button>

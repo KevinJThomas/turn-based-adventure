@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 
 <div class="mode-content">
-    <md-card class="mode-card">
+    <md-card class="mode-card" [routerLink]="['/play/new-story']">
         <md-toolbar class="mode-toolbar">
             <span class="mode-title">New Story</span>
         </md-toolbar>
@@ -9,7 +9,7 @@
             <img class="mode-image" [src]="imgUrl">
         </md-card-content>
     </md-card>
-    <md-card class="mode-card">
+    <md-card class="mode-card" [routerLink]="['/play/continue-story']">
         <md-toolbar class="mode-toolbar">
             <span class="mode-title">Continue Story</span>
         </md-toolbar>
@@ -17,7 +17,7 @@
             <img class="mode-image" [src]="imgUrl">
         </md-card-content>
     </md-card>
-    <md-card class="mode-card">
+    <md-card class="mode-card" [routerLink]="['/play/the-arena']">
         <md-toolbar class="mode-toolbar">
             <span class="mode-title">The Arena</span>
         </md-toolbar>
