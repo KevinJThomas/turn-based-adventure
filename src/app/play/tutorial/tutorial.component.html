@@ -1,41 +1,55 @@
 <app-nav-bar></app-nav-bar>
 
-<div *ngIf="!isBattleFinished">
-    <div class="enemy-hero">
-        {{theGame.enemy[0].name}}
-    </div>
-    <div class="stats">
-        H: {{theGame.enemy[0].currentHealth}} / {{theGame.enemy[0].maxHealth}}
-    </div>
-    <div class="stats">
-        E: {{theGame.enemy[0].currentEnergy}} / {{theGame.enemy[0].maxEnergy}}
+<div *ngIf="isBattleFinished === 0">
+    <div class="enemy-heroes">
+        <div *ngFor="let thisEnemy of theGame.enemy" class="enemy-hero">
+            <div class="enemy-hero-name" (click)="openHeroDialog(thisEnemy)">
+                {{thisEnemy.name}}
+            </div>
+            <div class="stats" [style.color]="getHealthColor(thisEnemy)">
+                H: {{thisEnemy.currentHealth}} / {{thisEnemy.maxHealth}}
+            </div>
+            <div class="stats" [style.color]="getEnergyColor(thisEnemy)">
+                E: {{thisEnemy.currentEnergy}} / {{thisEnemy.maxEnergy}}
+            </div>
+        </div>
     </div>
     
     <textarea readonly class="play-by-play">{{theGame.playByPlay}}</textarea>
+    <button md-button class="clear-button" (click)="clearLog()">clear log</button>
 
-    <div class="player-hero" (click)="openHeroDialog(theGame.player[0])">
-        {{theGame.player[0].name}}
-    </div>
-    <div class="stats">
-        H: {{theGame.player[0].currentHealth}} / {{theGame.player[0].maxHealth}}
-    </div>
-    <div class="stats">
-        E: {{theGame.player[0].currentEnergy}} / {{theGame.player[0].maxEnergy}}
-    </div>
-    <md-select placeholder="Select an Action" class="player-abilities" *ngIf="turnActive">
-        <md-option *ngFor="let ability of theGame.player[0].abilities" [value]="ability" 
-        (click)="targetableAbilitySelected(theGame.player[0], ability)">
-            ({{ability.cost}}) {{ability.name}} - P:{{ability.power}}
-        </md-option>
-    </md-select>
-    <md-select *ngIf="targetableAbility" placeholder="Select a Target" class="player-abilities">    
-        <md-option *ngFor="let target of theGame.enemy" [value]="target" (click)="setReady(theGame.player[0], target)">
-            {{target.name}}
-        </md-option>
-    </md-select>
-    <div *ngIf="showError" class="error-message">Not enough energy</div>
-    <button [disabled]="ready === false || showError === true ? true : null"
-    md-button class="battle-button" (click)="executeTurn()">Battle!</button>
+    <div class="player-heroes">
+        <div *ngFor="let thisHero of theGame.player" class="player-hero">
+            <div class="player-hero-name" (click)="openHeroDialog(thisHero)">
+                {{thisHero.name}}
+            </div>
+            <div class="stats" [style.color]="getHealthColor(thisHero)">
+                H: {{thisHero.currentHealth}} / {{thisHero.maxHealth}}
+            </div>
+            <div class="stats" [style.color]="getEnergyColor(thisHero)">
+                E: {{thisHero.currentEnergy}} / {{thisHero.maxEnergy}}
+            </div>
+            <md-select placeholder="Select an Action" class="player-abilities" *ngIf="turnActive" [disabled]="disableButtons">
+                <md-option *ngFor="let ability of thisHero.abilities" [value]="ability" 
+                (click)="abilitySelected(thisHero, ability)" [disabled]="ability.cost > thisHero.currentEnergy">
+                    {{ability.name}} ({{ability.cost}})
+                </md-option>
+            </md-select>
+            <md-select [disabled]="!thisHero.targetableAbilitySet || disableButtons" placeholder="Select a Target" class="player-abilities"
+                *ngIf="turnActive && !thisHero.friendlyTargetableAbilitySet">   
+                <md-option *ngFor="let target of theGame.enemy" [value]="target" (click)="setReady(thisHero, target)" [disabled]="!target.alive">
+                    {{target.name}}
+                </md-option>
+            </md-select>
+            <md-select [disabled]="!thisHero.friendlyTargetableAbilitySet || disableButtons" placeholder="Select a Target" class="player-abilities"
+                *ngIf="turnActive && thisHero.friendlyTargetableAbilitySet">   
+                <md-option *ngFor="let target of theGame.player" [value]="target" (click)="setReady(thisHero, target)" [disabled]="!target.alive">
+                    {{target.name}}
+                </md-option>
+            </md-select>
+        </div>
+    </div>    
+    <button [disabled]="ready === false ? true : null" md-button class="battle-button" (click)="executeTurn()">Battle!</button>
 </div>
 
 <div class="game-over" [ngSwitch]="isBattleFinished">
@@ -45,4 +59,4 @@
     <h1 *ngSwitchCase="3">Game Over</h1>
 </div>
 
-<button md-raised-button class="continue-button" *ngIf="isBattleFinished != 0" [routerLink]="['/play']">Continue</button>
+<button md-raised-button class="continue-button" *ngIf="isBattleFinished != 0" (click)="continue()">Continue</button>

@@ -13,18 +13,30 @@ export class Dialogs {
             `Each hero also starts with a couple basic abilities. As that hero levels up, they will be able to learn more abilties
             (depending on their total level and stat levels). There are many types of abilities, including offensive (damage),
             defensive (healing), and utility (buffing).`,
-            `Each ability has an energy cost. It will be displayed on the left of the ability list in parentheses. Each heroes'
-            current/max energy (E) and current/max health (H) will be displayed underneath their name on the battlefield.`,
+            `Each ability has an energy cost. It will be displayed on the right of the ability list in parentheses. Each heroes'
+            current/max energy (E) and current/max health (H) will be displayed underneath their name on the battlefield.
+            If you ever want more details on any of your heroes' abilities, you can click on their name to get a better description.`,
             `For this tutorial, you will face a few different opponents. They will get progressively harder so that you can learn while you go.`,
-            `You first battle will be a 1v1. You are controlling Zed, a deadly ninja. Your opponent is Bruiser, good luck!`
+            `You first battle will be a 1v2. You are controlling Zed, a deadly ninja. Your opponents are Bruiser and Crusher,
+            a few street thugs that have been getting a little too cocky. Teach them a lesson!`
         ]
     }
 
     tutorialFirstTurn(): string[] {
         return [
-            `You've completed your first turn, good job! You'll notice you can see the energy and health that was lost from both heroes
+            `You've completed your first turn, good job! You'll notice you can see the energy and health that was lost from the heroes
             displayed under their nameplates.`,
-            `Now keep up fight against Bruiser! I can see him getting weaker!`
+            `Now keep up the fight against these thugs! I can see them getting weaker!`
+        ]
+    }
+
+    tutorialStageTwo(): string[] {
+        return [
+            `Congratulations, you've defeated Bruiser and Crusher! That's your first win under your belt.`,
+            `That was a good warmup, but now you will face a few more worthy opponents. You will now be matched with 3 evil witch triplets.`,
+            `Don't worry! You're also getting a new member for your team: Mercy. Mercy isn't very aggresive, but she can use
+            powerful spells to keep the rest of her team alive.`,
+            `Beware of the witches curse ability. If it isn't cleansed, it can be deadly. Good luck!`
         ]
     }
 }

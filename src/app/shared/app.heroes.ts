@@ -1,5 +1,6 @@
 export enum Heroes {
     Warrior,
     Ranger,
-    Mage
+    Mage,
+    Cleric
 }

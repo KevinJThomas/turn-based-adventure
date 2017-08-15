@@ -2,10 +2,8 @@
 
 <md-list>
     <md-list-item *ngFor="let ability of hero.abilities">
-        <span class="ability-description" mdTooltip="{{ability.description}}">{{ability.name}}</span>        
-        <span class="spacer"></span>
+        <span class="ability-description" mdTooltip="{{ability.description}}">{{ability.name}}</span>
         <span class="ability-description">Power: {{ability.power | twodigit}}</span>
-        <span class="spacer"></span>        
         <span class="ability-description">Energy: {{ability.cost | twodigit}}</span>
     </md-list-item>
 </md-list>
