@@ -7,5 +7,9 @@ export enum AbilityTypes {
     DoT,
     HoT,
     Cleanse,
-    Curse
+    Curse,
+    Buff,
+    AOEBuff,
+    AOECurse,
+    AOECleanse
 }

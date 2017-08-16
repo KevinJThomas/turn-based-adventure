@@ -39,4 +39,18 @@ export class Dialogs {
             `Beware of the witches curse ability. If it isn't cleansed, it can be deadly. Good luck!`
         ]
     }
+
+    tutorialStageThree(): string[] {
+        return [
+            `stage 3`,
+            'go'
+        ]
+    }
+
+    tutorialFinish(): string[] {
+        return [
+            `Wow! You made it through the whole tutorial! It looks like you are ready for a real battle!`,
+            `Try recruting a team in story mode and see how strong you can become, or try a fight to the death in the arena! Good luck!`
+        ]
+    }
 }

@@ -41,7 +41,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
         this.playSVC.setAbility(player, ability);
     }
     
-    setReady(player: any, target: any) {        
+    setReady(player: any, target: any) {
         this.ready = this.playSVC.setTarget(player, target);
     }
 
@@ -55,6 +55,8 @@ export class TutorialComponent implements OnInit, OnDestroy {
             this.turnActive = false;
             await this.sleep(0);
             this.turnActive = true;
+        } else if (this.playSVC.isBattleFinished() === WinConditions.Win && this.stage === 2) {
+            this.playSVC.openDialog(this.dialogs.tutorialFinish());
         }
 
         this.disableButtons = false;
@@ -81,6 +83,14 @@ export class TutorialComponent implements OnInit, OnDestroy {
         }
     }
 
+    getNameColor(thisEnemy: any) {
+        if (thisEnemy.alive) {
+            return '';
+        } else {
+            return 'grey';
+        }
+    }
+
     getEnergyColor(thisEnemy: any) {
         if (thisEnemy.currentEnergy > 0) {
             return '';
@@ -90,27 +100,32 @@ export class TutorialComponent implements OnInit, OnDestroy {
     }
 
     continue() {
-        switch (this.stage) {
-            case 0: {
-                this.stage++;
-                this.isBattleFinished = WinConditions.InProgress;
-                this.playSVC.tutorialStageTwo();
-                this.playSVC.openDialog(this.dialogs.tutorialStageTwo());
-                break;
+        if (this.isBattleFinished === WinConditions.Win) {
+            switch (this.stage) {
+                case 0: {
+                    this.stage++;
+                    this.isBattleFinished = WinConditions.InProgress;
+                    this.playSVC.tutorialStageTwo();
+                    this.playSVC.openDialog(this.dialogs.tutorialStageTwo());
+                    break;
+                }
+                case 1: {
+                    this.stage++;                    
+                    this.isBattleFinished = WinConditions.InProgress;
+                    this.playSVC.tutorialStageThree();
+                    this.playSVC.openDialog(this.dialogs.tutorialStageThree());
+                    break;
+                }
+                case 2: {
+                    this.router.navigate(['/play']);
+                    break;
+                }
+                default: {
+                    console.log('ERROR: Default in tutorial.component.ts.continue() hit');
+                }
             }
-            case 1: {
-                this.stage++;
-                this.playSVC.tutorialStageThree();
-                // this.isBattleFinished = WinConditions.InProgress;
-                break;
-            }
-            case 2: {
-                this.router.navigate(['/play']);
-                break;
-            }
-            default: {
-                console.log('ERROR: Default in tutorial.component.ts.continue() hit');
-            }
+        } else {
+            this.router.navigate(['/instructions']);
         }
     }
 

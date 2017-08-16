@@ -52,9 +52,10 @@ export class PlayService {
     }
 
     tutorialStageThree() {
-        // stage 3
         this.theGame.player.splice(0, this.theGame.player.length);
         this.theGame.enemy.splice(0, this.theGame.enemy.length);
+        this.theGame.player = this.scenarios.tutorialPlayerArmy();
+        this.theGame.enemy = this.scenarios.tutorialEnemyArmy();
         this.theGame.playByPlay = '';
     }
 
@@ -65,6 +66,9 @@ export class PlayService {
                     case AbilityTypes.None:
                     case AbilityTypes.AOEDamage:
                     case AbilityTypes.AOEHeal:
+                    case AbilityTypes.AOEBuff:
+                    case AbilityTypes.AOECurse:
+                    case AbilityTypes.AOECleanse:
                         hero.targetableAbilitySet = false;
                         hero.friendlyTargetableAbilitySet = false;
                         break;
@@ -77,6 +81,7 @@ export class PlayService {
                     case AbilityTypes.SingleTargetHeal:
                     case AbilityTypes.Cleanse:
                     case AbilityTypes.HoT:
+                    case AbilityTypes.Buff:
                         hero.targetableAbilitySet = false;
                         hero.friendlyTargetableAbilitySet = true;
                         break;
@@ -84,7 +89,7 @@ export class PlayService {
                         console.log('ERROR: Default in play.service.ts.setAbility() hit');
                         break;
                 }
-                hero.targetableAbilitySet = ability.typeIndex === 1;
+
                 if (this.playerActions.length > 0) {
                     let duplicate = false;
                     for (let action of this.playerActions) {                        
@@ -133,23 +138,58 @@ export class PlayService {
 
     playerReady(): boolean {
         for (let hero of this.theGame.player) {
-            if (hero.ready === false) {
+            if (hero.alive === true && hero.ready === false) {
                 return false;
             }
         }
         return true;
     }
 
+    findEnemyAbility(enemy: any) {
+        const availableAbilities = enemy.abilities.filter(ability => ability.cost <= enemy.currentEnergy);
+        return availableAbilities[this.getRandomNumber(0, availableAbilities.length - 1)];
+    }
+
+    findEnemyTarget(ability: any) {
+        switch (ability.typeIndex) {
+            case AbilityTypes.None:
+            case AbilityTypes.AOEDamage:
+            case AbilityTypes.AOEHeal:
+            case AbilityTypes.AOEBuff:
+            case AbilityTypes.AOECurse:
+            case AbilityTypes.AOECleanse:
+                break;
+            case AbilityTypes.SingleTargetDamage:
+            case AbilityTypes.Curse:
+            case AbilityTypes.DoT:
+                const livingTargets = this.theGame.player.filter(hero => hero.alive === true);
+                return livingTargets[this.getRandomNumber(0, livingTargets.length - 1)];
+            case AbilityTypes.SingleTargetHeal:
+            case AbilityTypes.Cleanse:
+            case AbilityTypes.HoT:
+            case AbilityTypes.Buff:
+                const livingAllies = this.theGame.enemy.filter(hero => hero.alive === true);
+                return livingAllies[this.getRandomNumber(0, livingAllies.length - 1)];
+            default:
+                console.log('ERROR: Default in play.service.ts.findEnemyTarget() hit');
+                break;
+        }
+    }
+
     async battle() {
         for (let enemy of this.theGame.enemy) {
-            if (enemy.alive) {
-                this.enemyActions.push({ //enemies can cast with negative mana
-                    hero: enemy,
-                    ability: enemy.abilities[this.getRandomNumber(0, enemy.abilities.length - 1)],
-                    target: this.theGame.player[this.getRandomNumber(0, this.theGame.player.length - 1)]
-                });
+            if (enemy.alive) {                
+                const enemyAbility = this.findEnemyAbility(enemy);
+                const target = this.findEnemyTarget(enemyAbility);
+                if (enemyAbility) {
+                    this.enemyActions.push({
+                        hero: enemy,
+                        ability: enemyAbility,
+                        target: target
+                    });
+                }
             }
-        }
+        }        
 
         let allActions = this.playerActions.concat(this.enemyActions);
         allActions.sort((t1, t2) => {
@@ -201,6 +241,22 @@ export class PlayService {
                         this.curseAbility(action);
                         break;
                     }
+                    case AbilityTypes.Buff: {
+                        this.buffAbility(action);
+                        break;
+                    }
+                    case AbilityTypes.AOEBuff: {
+                        this.aoeBuffAbility(action);
+                        break;
+                    }
+                    case AbilityTypes.AOECurse: {
+                        this.aoeCurseAbility(action);
+                        break;
+                    }
+                    case AbilityTypes.AOECleanse: {
+                        this.aoeCleanseAbility(action);
+                        break;
+                    }
                     default: {
                         console.log('ERROR: Default in play.service.ts.battle() hit');
                     }
@@ -224,7 +280,6 @@ export class PlayService {
             
             if (hero.debuffs.length > 0) {
                 for (let debuff of hero.debuffs) {
-                    console.log(debuff);
                     if (debuff.typeIndex === AbilityTypes.DoT) {
                         hero.currentHealth -= debuff.power;
                         debuff.turns--;
@@ -234,15 +289,15 @@ export class PlayService {
                         }
                     } else if (debuff.typeIndex === AbilityTypes.Curse) {
                         if (debuff.turns === 0) {
-                            console.log('cursed');
-                            // execute curse
+                            this.theGame.playByPlay = debuff.endEffect(hero) + '\n' + this.theGame.playByPlay;
                         } else {
                             debuff.turns--;
                         }
                     }
                 }
             }
-            hero.targetableAbilitySet = 0;
+            hero.targetableAbilitySet = false;
+            hero.friendlyTargetableAbilitySet = false;
             hero.ready = false;
         }
 
@@ -269,8 +324,7 @@ export class PlayService {
                         }
                     } else if (debuff.typeIndex === AbilityTypes.Curse) {
                         if (debuff.turns === 0) {
-                            console.log('cursed');
-                            // execute curse
+                            this.theGame.playByPlay = debuff.endEffect(hero) + '\n' + this.theGame.playByPlay;
                         } else {
                             debuff.turns--;
                         }
@@ -373,9 +427,8 @@ export class PlayService {
         action.target.debuffs.push({
             typeIndex: action.ability.typeIndex,
             power: action.ability.power,
-            turns: action.ability. turns
+            turns: action.ability.turns
         });
-        console.log(action.target.debuffs);
         this.checkDeath();
         this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name + ' [' + action.ability.power + ']' +
             ' on ' + action.target.name + ' to deal damage over time\n' +  this.theGame.playByPlay;
@@ -385,13 +438,18 @@ export class PlayService {
         action.target.buffs.push({
             typeIndex: action.ability.typeIndex,
             power: action.ability.power,
-            turns: action.ability. turns
+            turns: action.ability.turns
         });
         this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name + ' [' + action.ability.power + ']' +
             ' on ' + action.target.name + ' to heal over time\n' +  this.theGame.playByPlay;
     }
 
     cleanseAbility(action: any) {
+        for (let debuff of action.target.debuffs) {
+            if (debuff.triggerOnCleanse) {
+                debuff.endEffect(action.target);
+            }
+        }
         action.target.debuffs = [];
         this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
             ' on ' + action.target.name + ' to remove harmful effects\n' +  this.theGame.playByPlay;
@@ -399,12 +457,114 @@ export class PlayService {
 
     curseAbility(action: any) {
         action.target.debuffs.push({
+            name: action.ability.name,
             typeIndex: action.ability.typeIndex,
+            triggerOnCleanse: action.ability.triggerOnCleanse,
             power: action.ability.power,
-            turns: action.ability. turns
+            turns: action.ability.turns,
+            endEffect: action.ability.endEffect
         });
+        action.ability.effect(action.target);
         this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
             ' on ' + action.target.name + '\n' +  this.theGame.playByPlay;
+    }
+
+    buffAbility(action: any) {
+        action.target.buffs.push({
+            name: action.ability.name,
+            typeIndex: action.ability.typeIndex,
+            triggerOnCleanse: action.ability.triggerOnCleanse,
+            power: action.ability.power,
+            turns: action.ability.turns,
+            endEffect: action.ability.endEffect
+        });
+        action.ability.effect(action.target);
+        this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
+            ' on ' + action.target.name + '\n' +  this.theGame.playByPlay;
+    }
+
+    aoeBuffAbility(action: any) {
+        if (this.theGame.player.includes(action.hero)) {
+            for (let hero of this.theGame.player) {
+                hero.buffs.push({
+                    name: action.ability.name,
+                    typeIndex: action.ability.typeIndex,
+                    triggerOnCleanse: action.ability.triggerOnCleanse,
+                    power: action.ability.power,
+                    turns: action.ability.turns,
+                    endEffect: action.ability.endEffect
+                });
+            }
+            action.ability.effect(this.theGame.player);
+        } else if (this.theGame.enemy.includes(action.hero)) {
+            for (let hero of this.theGame.enemy) {
+                hero.buffs.push({
+                    name: action.ability.name,
+                    typeIndex: action.ability.typeIndex,
+                    triggerOnCleanse: action.ability.triggerOnCleanse,
+                    power: action.ability.power,
+                    turns: action.ability.turns,
+                    endEffect: action.ability.endEffect
+                });
+            }
+            action.ability.effect(this.theGame.enemy);
+        }
+        this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
+            ' to buff all allies\n' +  this.theGame.playByPlay;
+    }
+
+    aoeCurseAbility(action: any) {
+        if (this.theGame.player.includes(action.hero)) {
+            for (let hero of this.theGame.enemy) {
+                hero.buffs.push({
+                    name: action.ability.name,
+                    typeIndex: action.ability.typeIndex,
+                    triggerOnCleanse: action.ability.triggerOnCleanse,
+                    power: action.ability.power,
+                    turns: action.ability.turns,
+                    endEffect: action.ability.endEffect
+                });
+            }
+            action.ability.effect(this.theGame.enemy);
+        } else if (this.theGame.enemy.includes(action.hero)) {
+            for (let hero of this.theGame.player) {
+                hero.buffs.push({
+                    name: action.ability.name,
+                    typeIndex: action.ability.typeIndex,
+                    triggerOnCleanse: action.ability.triggerOnCleanse,
+                    power: action.ability.power,
+                    turns: action.ability.turns,
+                    endEffect: action.ability.endEffect
+                });
+            }
+            action.ability.effect(this.theGame.player);
+        }
+        this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
+            ' to harm all enemies\n' +  this.theGame.playByPlay;
+    }
+
+    aoeCleanseAbility(action: any) {
+        if (this.theGame.player.includes(action.hero)) {
+            for (let hero of this.theGame.player) {
+                for (let debuff of hero) {
+                    if (debuff.triggerOnCleanse) {
+                        debuff.endEffect(hero);
+                    }
+                }
+                hero.debuffs = [];
+            }
+        } else if (this.theGame.enemy.includes(action.hero)) {
+            for (let hero of this.theGame.enemy) {
+                for (let debuff of hero) {
+                    if (debuff.triggerOnCleanse) {
+                        debuff.endEffect(hero);
+                    }
+                }
+                hero.debuffs = [];
+            }
+        }
+        this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
+            ' to buff all allies\n' +  this.theGame.playByPlay;
     }
 
     checkDeath() {

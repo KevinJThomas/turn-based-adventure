@@ -104,6 +104,7 @@ md-option {
     height: 150px;
     resize: none;
     overflow: auto;
+    /* background-color: rgb(235,235,235); */
 }
 
 .clear-button {
