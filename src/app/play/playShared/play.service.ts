@@ -69,14 +69,18 @@ export class PlayService {
                     case AbilityTypes.AOEBuff:
                     case AbilityTypes.AOECurse:
                     case AbilityTypes.AOECleanse:
+                    case AbilityTypes.AOEDoT:
+                    case AbilityTypes.AOEHoT:
                         hero.targetableAbilitySet = false;
                         hero.friendlyTargetableAbilitySet = false;
+                        hero.ready = true;
                         break;
                     case AbilityTypes.SingleTargetDamage:
                     case AbilityTypes.Curse:
                     case AbilityTypes.DoT:
                         hero.targetableAbilitySet = true;
                         hero.friendlyTargetableAbilitySet = false;
+                        hero.ready = false;
                         break;
                     case AbilityTypes.SingleTargetHeal:
                     case AbilityTypes.Cleanse:
@@ -84,6 +88,7 @@ export class PlayService {
                     case AbilityTypes.Buff:
                         hero.targetableAbilitySet = false;
                         hero.friendlyTargetableAbilitySet = true;
+                        hero.ready = false;
                         break;
                     default:
                         console.log('ERROR: Default in play.service.ts.setAbility() hit');
@@ -158,6 +163,8 @@ export class PlayService {
             case AbilityTypes.AOEBuff:
             case AbilityTypes.AOECurse:
             case AbilityTypes.AOECleanse:
+            case AbilityTypes.AOEDoT:
+            case AbilityTypes.AOEHoT:
                 break;
             case AbilityTypes.SingleTargetDamage:
             case AbilityTypes.Curse:
@@ -176,12 +183,21 @@ export class PlayService {
         }
     }
 
+    unfreeze() {
+        for (let hero of this.theGame.player) {
+            hero.frozen = false;
+        }
+        for (let hero of this.theGame.enemy) {
+            hero.frozen = false;
+        }
+    }
+
     async battle() {
         for (let enemy of this.theGame.enemy) {
-            if (enemy.alive) {                
-                const enemyAbility = this.findEnemyAbility(enemy);
-                const target = this.findEnemyTarget(enemyAbility);
+            if (enemy.alive && !enemy.frozen) {
+                const enemyAbility = this.findEnemyAbility(enemy);                
                 if (enemyAbility) {
+                    const target = this.findEnemyTarget(enemyAbility);
                     this.enemyActions.push({
                         hero: enemy,
                         ability: enemyAbility,
@@ -189,7 +205,7 @@ export class PlayService {
                     });
                 }
             }
-        }        
+        }
 
         let allActions = this.playerActions.concat(this.enemyActions);
         allActions.sort((t1, t2) => {
@@ -201,6 +217,8 @@ export class PlayService {
             }
             return 0;
         });
+
+        this.unfreeze();
 
         for (let action of allActions) {
             if (action.hero.alive) {
@@ -257,6 +275,14 @@ export class PlayService {
                         this.aoeCleanseAbility(action);
                         break;
                     }
+                    case AbilityTypes.AOEDoT: {
+                        this.aoeDoTAbility(action);
+                        break;
+                    }
+                    case AbilityTypes.AOEHoT: {
+                        this.aoeHoTAbility(action);
+                        break;
+                    }
                     default: {
                         console.log('ERROR: Default in play.service.ts.battle() hit');
                     }
@@ -270,9 +296,22 @@ export class PlayService {
                 for (let buff of hero.buffs) {
                     if (buff.typeIndex === AbilityTypes.HoT) {
                         if ((hero.currentHealth + buff.power) < hero.maxHealth) {
-                            hero.currentHealth += buff.power;
+                            hero.currentHealth += buff.power;                            
                         } else {
                             hero.currentHealth = hero.maxHealth;
+                        }
+                        buff.turns--;
+                        if (buff.turns <= 0) {
+                            const index = hero.buffs.indexOf(buff, 0);
+                            hero.buffs.splice(index, 1);
+                        }
+                    } else if (buff.typeIndex === AbilityTypes.Buff) {
+                        if (buff.turns <= 0) {
+                            this.theGame.playByPlay = buff.endEffect(hero) + '\n' + this.theGame.playByPlay;
+                            const index = hero.buffs.indexOf(buff, 0);
+                            hero.buffs.splice(index, 1);
+                        } else {
+                            buff.turns--;
                         }
                     }
                 }
@@ -288,8 +327,10 @@ export class PlayService {
                             hero.debuffs.splice(index, 1);
                         }
                     } else if (debuff.typeIndex === AbilityTypes.Curse) {
-                        if (debuff.turns === 0) {
+                        if (debuff.turns <= 0) {
                             this.theGame.playByPlay = debuff.endEffect(hero) + '\n' + this.theGame.playByPlay;
+                            const index = hero.debuffs.indexOf(debuff, 0);
+                            hero.debuffs.splice(index, 1);
                         } else {
                             debuff.turns--;
                         }
@@ -306,9 +347,22 @@ export class PlayService {
                 for (let buff of hero.buffs) {
                     if (buff.typeIndex === AbilityTypes.HoT) {
                         if ((hero.currentHealth + buff.power) < hero.maxHealth) {
-                            hero.currentHealth += buff.power;
+                            hero.currentHealth += buff.power;                            
                         } else {
                             hero.currentHealth = hero.maxHealth;
+                        }
+                        buff.turns--;
+                        if (buff.turns <= 0) {
+                            const index = hero.buffs.indexOf(buff, 0);
+                            hero.buffs.splice(index, 1);
+                        }
+                    } else if (buff.typeIndex === AbilityTypes.Buff) {
+                        if (buff.turns <= 0) {
+                            this.theGame.playByPlay = buff.endEffect(hero) + '\n' + this.theGame.playByPlay;
+                            const index = hero.buffs.indexOf(buff, 0);
+                            hero.buffs.splice(index, 1);
+                        } else {
+                            buff.turns--;
                         }
                     }
                 }
@@ -323,8 +377,10 @@ export class PlayService {
                             hero.debuffs.splice(index, 1);
                         }
                     } else if (debuff.typeIndex === AbilityTypes.Curse) {
-                        if (debuff.turns === 0) {
+                        if (debuff.turns <= 0) {
                             this.theGame.playByPlay = debuff.endEffect(hero) + '\n' + this.theGame.playByPlay;
+                            const index = hero.debuffs.indexOf(debuff, 0);
+                            hero.debuffs.splice(index, 1);
                         } else {
                             debuff.turns--;
                         }
@@ -335,6 +391,11 @@ export class PlayService {
 
         this.playerActions = [];
         this.enemyActions = [];
+        for (let hero of this.theGame.player) {
+            if (hero.frozen) {
+                hero.ready = true;
+            }
+        }
     }
 
     isBattleFinished(): number {
@@ -406,7 +467,7 @@ export class PlayService {
                 if ((player.currentHealth + action.ability.power) < player.maxHealth) {
                     player.currentHealth += action.ability.power;
                 } else {
-                    player.currentHealth += player.maxHealth;
+                    player.currentHealth = player.maxHealth;
                 }                
             }
         } else if (this.theGame.enemy.includes(action.hero)) {
@@ -414,7 +475,7 @@ export class PlayService {
                 if ((enemy.currentHealth + action.ability.power) < enemy.maxHealth) {
                     enemy.currentHealth += action.ability.power;
                 } else {
-                    enemy.currentHealth += enemy.maxHealth;
+                    enemy.currentHealth = enemy.maxHealth;
                 }   
             }
         }
@@ -488,7 +549,7 @@ export class PlayService {
             for (let hero of this.theGame.player) {
                 hero.buffs.push({
                     name: action.ability.name,
-                    typeIndex: action.ability.typeIndex,
+                    typeIndex: AbilityTypes.Buff,
                     triggerOnCleanse: action.ability.triggerOnCleanse,
                     power: action.ability.power,
                     turns: action.ability.turns,
@@ -500,7 +561,7 @@ export class PlayService {
             for (let hero of this.theGame.enemy) {
                 hero.buffs.push({
                     name: action.ability.name,
-                    typeIndex: action.ability.typeIndex,
+                    typeIndex: AbilityTypes.Buff,
                     triggerOnCleanse: action.ability.triggerOnCleanse,
                     power: action.ability.power,
                     turns: action.ability.turns,
@@ -516,9 +577,9 @@ export class PlayService {
     aoeCurseAbility(action: any) {
         if (this.theGame.player.includes(action.hero)) {
             for (let hero of this.theGame.enemy) {
-                hero.buffs.push({
+                hero.debuffs.push({
                     name: action.ability.name,
-                    typeIndex: action.ability.typeIndex,
+                    typeIndex: AbilityTypes.Curse,
                     triggerOnCleanse: action.ability.triggerOnCleanse,
                     power: action.ability.power,
                     turns: action.ability.turns,
@@ -528,9 +589,9 @@ export class PlayService {
             action.ability.effect(this.theGame.enemy);
         } else if (this.theGame.enemy.includes(action.hero)) {
             for (let hero of this.theGame.player) {
-                hero.buffs.push({
+                hero.debuffs.push({
                     name: action.ability.name,
-                    typeIndex: action.ability.typeIndex,
+                    typeIndex: AbilityTypes.Curse,
                     triggerOnCleanse: action.ability.triggerOnCleanse,
                     power: action.ability.power,
                     turns: action.ability.turns,
@@ -565,6 +626,52 @@ export class PlayService {
         }
         this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name +
             ' to buff all allies\n' +  this.theGame.playByPlay;
+    }
+
+    aoeDoTAbility(action: any) {
+        if (this.theGame.player.includes(action.hero)) {
+            for (let hero of this.theGame.enemy) {
+                hero.debuffs.push({
+                    typeIndex: AbilityTypes.DoT,
+                    power: action.ability.power,
+                    turns: action.ability.turns
+                });
+            }
+        } else if (this.theGame.enemy.includes(action.hero)) {
+            for (let hero of this.theGame.player) {
+                hero.debuffs.push({
+                    typeIndex: AbilityTypes.DoT,
+                    power: action.ability.power,
+                    turns: action.ability.turns
+                });
+            }
+        }        
+        this.checkDeath();
+        this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name + ' [' + action.ability.power + ']' +
+            ' on all enemies to deal damage over time\n' +  this.theGame.playByPlay;
+    }
+
+    aoeHoTAbility(action: any) {
+        if (this.theGame.player.includes(action.hero)) {
+            for (let hero of this.theGame.player) {
+                hero.debuffs.push({
+                    typeIndex: AbilityTypes.HoT,
+                    power: action.ability.power,
+                    turns: action.ability.turns
+                });
+            }
+        } else if (this.theGame.enemy.includes(action.hero)) {
+            for (let hero of this.theGame.enemy) {
+                hero.debuffs.push({
+                    typeIndex: AbilityTypes.HoT,
+                    power: action.ability.power,
+                    turns: action.ability.turns
+                });
+            }
+        }        
+        this.checkDeath();
+        this.theGame.playByPlay = action.hero.name + ' uses ' + action.ability.name + ' [' + action.ability.power + ']' +
+            ' on all allies to heal them over time\n' +  this.theGame.playByPlay;
     }
 
     checkDeath() {

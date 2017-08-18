@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { AbilityTypes } from './play.ability-types';
 
 @Injectable()
-export class Abilities {
+export class Abilities {    
 
+    // Tutorial
     // Heroes
     // Zed
     stab() {
@@ -79,9 +80,211 @@ export class Abilities {
         }
     }
 
-    // dmg ability?
+    slash() {
+        return {
+            name: 'Slash',
+            typeIndex: AbilityTypes.SingleTargetDamage,
+            power: 8,
+            cost: 20,
+            description: 'Slash an enemy'
+        }
+    }
 
-    // Tutorial
+    // Jacquelyn
+    volley() {
+        return {
+            name: 'Volley',
+            typeIndex: AbilityTypes.AOEDamage,
+            power: 6,
+            cost: 50,
+            description: 'Fire a volley of arrows to damage all enemies'
+        }
+    }
+
+    fieryArrow() {
+        return {
+            name: 'Fiery Arrow',
+            typeIndex: AbilityTypes.DoT,
+            power: 6,
+            turns: 3,
+            cost: 25,
+            description: 'Shoot a fiery arrow at an enemy to start them on fire and burn them over 3 turns'
+        }
+    }
+
+    powerShot() {
+        return {
+            name: 'Power Shot',
+            typeIndex: AbilityTypes.SingleTargetDamage,
+            power: 14,
+            cost: 35,
+            description: 'Fire a single, powerful shot at an enemy'
+        }
+    }
+
+    // Ysmay
+    fear() {
+        return {
+            name: 'Fear',
+            typeIndex: AbilityTypes.Curse,
+            triggerOnCleanse: false,
+            power: 0,
+            cost: 40,
+            turns: 2,
+            effect: (target) => {
+                
+            },
+            endEffect: (target) => {
+                target.currentHealth -= 40;
+                return target.name + ' is injured from Fear';
+            },
+            description: 'Instill fear in a target, causing them to take massive damage at the end of next turn'
+        }
+    }
+
+    inspire() {
+        return {
+            name: 'Inspire',
+            typeIndex: AbilityTypes.Buff,
+            triggerOnCleanse: true,
+            power: 0,
+            cost: 30,
+            turns: 999,
+            effect: (target) => {
+                 target.currentHealth += 30;
+                 target.maxHealth += 30;
+            },
+            endEffect: (target) => {
+                target.maxHealth -= 30;
+                if (target.currentHealth > target.maxHealth) {
+                    target.currentHealth = target.maxHealth;
+                }
+                return 'Inspire wears off';
+            },
+            description: 'Inspire an ally to increase their maximum health'
+        }
+    }
+
+    doom() {
+        return {
+            name: 'DOOM',
+            typeIndex: AbilityTypes.AOEDamage,
+            power: 1000,
+            cost: 300,
+            description: 'Bring down the power of the universe on your enemies to destroy them with righteous doom'
+        }
+    }
+
+    groundSlam() {
+        return {
+            name: 'Ground Slam',
+            typeIndex: AbilityTypes.AOEDamage,
+            power: 12,
+            cost: 50,
+            description: 'Smash your weapon into the ground to cause an earthquake to damage all enemies'
+        }
+    }
+
+    // Rowan
+    bolster() {
+        return {
+            name: 'Bolster',
+            typeIndex: AbilityTypes.AOEBuff,
+            triggerOnCleanse: true,
+            power: 0,
+            turns: 3,
+            cost: 30,
+            effect: (allies) => {
+                for (let ally of allies) {
+                    ally.strength += 10;
+                }
+            },
+            endEffect: (target) => {
+                target.strength -= 10;
+                return 'Bolster wears off';
+            },
+            description: 'Bolster your allies, increasing their strength for 3 turns'
+        }
+    }
+
+    rally() {
+        return {
+            name: 'Rally',
+            typeIndex: AbilityTypes.AOEBuff,
+            triggerOnCleanse: true,
+            power: 0,
+            turns: 1,
+            cost: 40,
+            effect: (allies) => {
+                for (let ally of allies) {
+                    ally.agility += 25;
+                }
+            },
+            endEffect: (target) => {
+                target.agility -= 25;
+                return 'Rally wears off';
+            },
+            description: 'Rally your allies together to massively increase their agility next turn'
+        }
+    }
+
+    shieldSlam() {
+        return {
+            name: 'Shield Slam',
+            typeIndex: AbilityTypes.SingleTargetDamage,
+            power: 10,
+            cost: 30,
+            description: 'Slam an enemy with your shield to damage them'
+        }
+    }
+
+    // Thea
+    posionMist() {
+        return {
+            name: 'Posion Mist',
+            typeIndex: AbilityTypes.AOEDoT,
+            power: 2,
+            turns: 3,
+            cost: 30,
+            description: 'Summon a posionous mist on your enemies to damage them over 3 turns'
+        }
+    }
+
+    calmingMist() {
+        return {
+            name: 'Calming Mist',
+            typeIndex: AbilityTypes.AOEHoT,
+            power: 3,
+            turns: 3,
+            cost: 30,
+            description: 'Summon a calming mist on your allies to heal them over 3 turns'
+        }
+    }
+
+    revitalizingMist() {
+        return {
+            name: 'Revitalizing Mist',
+            typeIndex: AbilityTypes.AOEBuff,
+            triggerOnCleanse: true,
+            power: 0,
+            turns: 999,
+            cost: 30,
+            effect: (allies) => {
+                for (let ally of allies) {
+                    ally.currentEnergy += 50;
+                    ally.maxEnergy += 50;
+                }
+            },
+            endEffect: (target) => {
+                target.maxEnergy -= 50;
+                if (target.currentEnergy > target.maxEnergy) {
+                    target.currentEnergy = target.maxEnergy;
+                }
+            },
+            description: 'Summon a revitalizing mist on your allies to increase their maximum energy by 50'
+        }
+    }
+
     // Stage 1
     // Bruiser
     bash() {
@@ -217,6 +420,7 @@ export class Abilities {
             },
             endEffect: (target) => {
                 target.agility -= 10;
+                return 'Wind Gust wears off';
             },
             description: 'A powerful gust of wind greatly increases all allies agility for 2 turns'
         }
@@ -242,10 +446,11 @@ export class Abilities {
             turns: 999,
             cost: 15,
             effect: (target) => {
-                target.frozen = true; // add login for this
+                target.frozen = true;
             },
             endEffect: (target) => {
                 target.frozen = false;
+                return target.name + ' is unfrozen';
             },
             description: 'Freeze an enemy to prevent them from attacking'
         }
@@ -287,7 +492,7 @@ export class Abilities {
         return {
             name: 'Sear',
             typeIndex: AbilityTypes.DoT,
-            power: 8,
+            power: 9,
             turns: 2,
             cost: 25,
             description: 'Sear an enemy to start them on fire and burn them over 2 turns'
@@ -362,6 +567,7 @@ export class Abilities {
             },
             endEffect: (target) => {
                 target.agility += 5;
+                return 'Soak wears off';
             },
             description: 'Soak the enemy with water, reducing their agility for 2 turns'
         }
@@ -374,6 +580,16 @@ export class Abilities {
             power: 6,
             cost: 40,
             description: 'Create a waterfall over enemies to damage them all'
+        }
+    }
+
+    pass() {
+        return {
+            name: 'Pass',
+            typeIndex: AbilityTypes.None,
+            power: 0,
+            cost: 0,
+            description: 'Pass your turn'
         }
     }
 }

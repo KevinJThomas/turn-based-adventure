@@ -6,6 +6,7 @@ import { Heroes } from '../../shared/app.heroes';
 import { WinConditions } from '../playShared/play.win-conditions';
 import { PlayService } from '../playShared/play.service';
 import { Dialogs } from '../playShared/play.dialogs';
+import { AbilityTypes } from '../playShared/play.ability-types';
 
 import { Subscription } from 'rxjs/Subscription';
 import "rxjs/add/operator/takeWhile";
@@ -39,6 +40,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
 
     abilitySelected(player: any, ability: any) {
         this.playSVC.setAbility(player, ability);
+        this.ready = this.playSVC.playerReady();
     }
     
     setReady(player: any, target: any) {
@@ -77,7 +79,11 @@ export class TutorialComponent implements OnInit, OnDestroy {
 
     getHealthColor(thisEnemy: any) {
         if (thisEnemy.alive) {
-            return '';
+            if (thisEnemy.frozen) {
+                return 'blue';
+            } else {
+                return '';
+            }            
         } else {
             return 'red';
         }
@@ -85,7 +91,11 @@ export class TutorialComponent implements OnInit, OnDestroy {
 
     getNameColor(thisEnemy: any) {
         if (thisEnemy.alive) {
-            return '';
+            if (thisEnemy.frozen) {
+                return 'blue';
+            } else {
+                return '';
+            }  
         } else {
             return 'grey';
         }
@@ -93,7 +103,11 @@ export class TutorialComponent implements OnInit, OnDestroy {
 
     getEnergyColor(thisEnemy: any) {
         if (thisEnemy.currentEnergy > 0) {
-            return '';
+            if (thisEnemy.frozen) {
+                return 'blue';
+            } else {
+                return '';
+            }  
         } else {
             return 'red';
         }

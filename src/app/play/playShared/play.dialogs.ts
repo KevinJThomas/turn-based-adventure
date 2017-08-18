@@ -42,8 +42,12 @@ export class Dialogs {
 
     tutorialStageThree(): string[] {
         return [
-            `stage 3`,
-            'go'
+            `You've made it to the third and final stage of the tutorial! Now that you have a few of the basics under your belt, you're going
+            to be given a real fight!`,
+            `Unfortunately for you, your team is against the infamous gods of the elements. These are the most difficult opponents you
+            can possibly face, and this fight is totally unfair.`,
+            `Thankfully for you, your team is comprised of the most successful heroes and legends in the world. Now all they need
+            is a brilliant strategist to pilot them. Show these elemental gods what you can do!`
         ]
     }
 

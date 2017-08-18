@@ -29,7 +29,7 @@
             <div class="stats" [style.color]="getEnergyColor(thisHero)">
                 E: {{thisHero.currentEnergy}} / {{thisHero.maxEnergy}}
             </div>
-            <md-select placeholder="Select an Action" class="player-abilities" *ngIf="turnActive" [disabled]="disableButtons || !thisHero.alive">
+            <md-select placeholder="Select an Action" class="player-abilities" *ngIf="turnActive" [disabled]="disableButtons || !thisHero.alive || thisHero.frozen">
                 <md-option *ngFor="let ability of thisHero.abilities" [value]="ability" 
                 (click)="abilitySelected(thisHero, ability)" [disabled]="ability.cost > thisHero.currentEnergy">
                     {{ability.name}} ({{ability.cost}})
@@ -40,7 +40,7 @@
                 <md-option *ngFor="let target of theGame.enemy" [value]="target" (click)="setReady(thisHero, target)" [disabled]="!target.alive">
                     {{target.name}}
                 </md-option>
-            </md-select> <!-- active while hero is dead -->
+            </md-select>
             <md-select [disabled]="!thisHero.friendlyTargetableAbilitySet || disableButtons" placeholder="Select a Target" class="player-abilities"
                 *ngIf="turnActive && thisHero.friendlyTargetableAbilitySet">   
                 <md-option *ngFor="let target of theGame.player" [value]="target" (click)="setReady(thisHero, target)" [disabled]="!target.alive">

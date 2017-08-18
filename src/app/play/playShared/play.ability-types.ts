@@ -11,5 +11,7 @@ export enum AbilityTypes {
     Buff,
     AOEBuff,
     AOECurse,
-    AOECleanse
+    AOECleanse,
+    AOEDoT,
+    AOEHoT
 }

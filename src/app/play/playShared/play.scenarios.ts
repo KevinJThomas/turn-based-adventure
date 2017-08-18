@@ -14,17 +14,17 @@ export class Scenarios {
         return {
             player: [ this.tutorialZed() ],
             enemy: [
-                this.createAI('Bruiser', 0, 10, 30, 30, 5, 4, true, [this.abilities.bash(), this.abilities.slice()]),
-                this.createAI('Crusher', 4, 6, 50, 50, 5, 4, true, [this.abilities.crush(), this.abilities.stomp()])
+                this.createAI('Bruiser', 10, 10, 30, 30, 5, 4, true, [this.abilities.bash(), this.abilities.slice()]),
+                this.createAI('Crusher', 6, 6, 50, 50, 5, 4, true, [this.abilities.crush(), this.abilities.stomp()])
             ]
         }
     }
 
     tutorialWitches() {
         return [
-            this.createAI('Agnes', 2, 15, 70, 70, 3, 4, true, [this.abilities.scream(), this.abilities.infect()]),
-            this.createAI('Matilda', 0, 15, 70, 70, 3, 5, true, [this.abilities.curse(), this.abilities.terrify()]),
-            this.createAI('Beatrice', 0, 15, 70, 70, 3, 6, true, [this.abilities.scratch(), this.abilities.bite()])
+            this.createAI('Agnes', 15, 15, 70, 70, 3, 4, true, [this.abilities.scream(), this.abilities.infect()]),
+            this.createAI('Matilda', 15, 15, 70, 70, 3, 5, true, [this.abilities.curse(), this.abilities.terrify()]),
+            this.createAI('Beatrice', 15, 15, 70, 70, 3, 6, true, [this.abilities.scratch(), this.abilities.bite()])
         ]
     }
 
@@ -63,7 +63,7 @@ export class Scenarios {
             buffs: [],
             debuffs: [],
             frozen: false,
-            abilities: [this.abilities.stab(), this.abilities.slice()]
+            abilities: [this.abilities.stab(), this.abilities.slice(), this.abilities.pass()]
         } 
     }
 
@@ -86,7 +86,7 @@ export class Scenarios {
             buffs: [],
             debuffs: [],
             frozen: false,
-            abilities: [this.abilities.bless(), this.abilities.wand(), this.abilities.cleanse()]
+            abilities: [this.abilities.bless(), this.abilities.wand(), this.abilities.cleanse(), this.abilities.pass()]
         }
     }
 
@@ -95,8 +95,8 @@ export class Scenarios {
             id: 2,
             name: 'Fendrel',
             level: 20,
-            maxHealth: 150,
-            currentHealth: 150,
+            maxHealth: 100,
+            currentHealth: 100,
             maxEnergy: 150,
             currentEnergy: 150,
             strength: 15,
@@ -109,17 +109,17 @@ export class Scenarios {
             buffs: [],
             debuffs: [],
             frozen: false,
-            abilities: [this.abilities.stab(), this.abilities.slice()]
+            abilities: [this.abilities.serenity(), this.abilities.spiritTouch(), this.abilities.slash(), this.abilities.pass()]
         } 
     }
 
     tutorialJacquelyn() {
         return {
-            id: 2,
+            id: 3,
             name: 'Jacquelyn',
             level: 20,
-            maxHealth: 150,
-            currentHealth: 150,
+            maxHealth: 100,
+            currentHealth: 100,
             maxEnergy: 150,
             currentEnergy: 150,
             strength: 15,
@@ -132,17 +132,17 @@ export class Scenarios {
             buffs: [],
             debuffs: [],
             frozen: false,
-            abilities: [this.abilities.stab(), this.abilities.slice()]
+            abilities: [this.abilities.volley(), this.abilities.fieryArrow(), this.abilities.powerShot(), this.abilities.pass()]
         } 
     }
 
     tutorialYsmay() {
         return {
-            id: 2,
+            id: 4,
             name: 'Ysmay',
             level: 20,
-            maxHealth: 150,
-            currentHealth: 150,
+            maxHealth: 100,
+            currentHealth: 100,
             maxEnergy: 150,
             currentEnergy: 150,
             strength: 15,
@@ -155,17 +155,17 @@ export class Scenarios {
             buffs: [],
             debuffs: [],
             frozen: false,
-            abilities: [this.abilities.stab(), this.abilities.slice()]
+            abilities: [this.abilities.fear(), this.abilities.inspire(), this.abilities.doom(), this.abilities.groundSlam(), this.abilities.pass()]
         } 
     }
 
     tutorialRowan() {
         return {
-            id: 2,
+            id: 5,
             name: 'Rowan',
             level: 20,
-            maxHealth: 150,
-            currentHealth: 150,
+            maxHealth: 100,
+            currentHealth: 100,
             maxEnergy: 150,
             currentEnergy: 150,
             strength: 15,
@@ -178,17 +178,17 @@ export class Scenarios {
             buffs: [],
             debuffs: [],
             frozen: false,
-            abilities: [this.abilities.stab(), this.abilities.slice()]
+            abilities: [this.abilities.bolster(), this.abilities.rally(), this.abilities.shieldSlam(), this.abilities.pass()]
         } 
     }
 
     tutorialThea() {
         return {
-            id: 2,
+            id: 6,
             name: 'Thea',
             level: 20,
-            maxHealth: 150,
-            currentHealth: 150,
+            maxHealth: 100,
+            currentHealth: 100,
             maxEnergy: 150,
             currentEnergy: 150,
             strength: 15,
@@ -201,7 +201,7 @@ export class Scenarios {
             buffs: [],
             debuffs: [],
             frozen: false,
-            abilities: [this.abilities.stab(), this.abilities.slice()]
+            abilities: [this.abilities.posionMist(), this.abilities.calmingMist(), this.abilities.revitalizingMist(), this.abilities.pass()]
         } 
     }
 
