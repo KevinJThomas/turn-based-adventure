@@ -2,10 +2,6 @@
     text-align: center;
 }
 
-.spacer {
-    flex: 1 1 auto;
-}
-
 .mat-list >  .mat-list-item:nth-child(2n+1) {
   background-color: rgba(232,232,238, .25);  
 }
@@ -20,4 +16,9 @@
 
 .ability-description:hover {
     cursor: default;
+}
+
+.ability-description {
+    width: 33%;
+    text-align: center;
 }

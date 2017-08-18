@@ -27,6 +27,7 @@ import { AppService } from '../shared/app.service';
 import { PlayService } from './playShared/play.service';
 import { Scenarios } from './playShared/play.scenarios';
 import { Dialogs } from './playShared/play.dialogs';
+import { Abilities } from './playShared/play.abilities';
 import { TwoDigitPipe } from './playShared/two-digit.pipe';
 
 const PlayRoutes: Routes = [
@@ -78,7 +79,8 @@ const PlayRoutes: Routes = [
     providers: [
         PlayService,
         Scenarios,
-        Dialogs
+        Dialogs,
+        Abilities
     ],
     entryComponents: [
         PlayDialogComponent,
