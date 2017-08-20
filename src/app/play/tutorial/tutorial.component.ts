@@ -9,14 +9,14 @@ import { Dialogs } from '../playShared/play.dialogs';
 import { AbilityTypes } from '../playShared/play.ability-types';
 
 import { Subscription } from 'rxjs/Subscription';
-import "rxjs/add/operator/takeWhile";
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
     templateUrl: './tutorial.component.html',
     styleUrls: ['./tutorial.component.css']
 })
 export class TutorialComponent implements OnInit, OnDestroy {
-    theGame: any;    
+    theGame: any;
     ready = false;
     turnActive = true;
     isBattleFinished = WinConditions.InProgress;
@@ -42,7 +42,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
         this.playSVC.setAbility(player, ability);
         this.ready = this.playSVC.playerReady();
     }
-    
+
     setReady(player: any, target: any) {
         this.ready = this.playSVC.setTarget(player, target);
     }
@@ -52,8 +52,8 @@ export class TutorialComponent implements OnInit, OnDestroy {
         this.disableButtons = true;
         await this.playSVC.battle();
         this.isBattleFinished = this.playSVC.isBattleFinished();
-        
-        if (this.playSVC.isBattleFinished() === WinConditions.InProgress) {          
+
+        if (this.playSVC.isBattleFinished() === WinConditions.InProgress) {
             this.turnActive = false;
             await this.sleep(0);
             this.turnActive = true;
@@ -66,7 +66,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
         if (this.firstTurn) {
             this.playSVC.openDialog(this.dialogs.tutorialFirstTurn());
             this.firstTurn = false;
-        }    
+        }
     }
 
     sleep(ms: number) {
@@ -83,7 +83,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
                 return 'blue';
             } else {
                 return '';
-            }            
+            }
         } else {
             return 'red';
         }
@@ -95,7 +95,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
                 return 'blue';
             } else {
                 return '';
-            }  
+            }
         } else {
             return 'grey';
         }
@@ -107,7 +107,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
                 return 'blue';
             } else {
                 return '';
-            }  
+            }
         } else {
             return 'red';
         }
@@ -124,7 +124,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
                     break;
                 }
                 case 1: {
-                    this.stage++;                    
+                    this.stage++;
                     this.isBattleFinished = WinConditions.InProgress;
                     this.playSVC.tutorialStageThree();
                     this.playSVC.openDialog(this.dialogs.tutorialStageThree());

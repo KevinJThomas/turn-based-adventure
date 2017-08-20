@@ -12,7 +12,7 @@ export class LoginComponent {
     password: string;
 
     constructor(private appSVC: AppService, private router: Router) {}
-    
+
     login() {
         this.appSVC.login(this.email, this.password);
         this.appSVC.verifyUser();
@@ -24,5 +24,5 @@ export class LoginComponent {
 
     cancel() {
         this.router.navigate(['']);
-    }    
+    }
 }
