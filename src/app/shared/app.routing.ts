@@ -22,7 +22,7 @@ import { AppService } from '../shared/app.service';
             { path: 'options' , component: OptionsComponent, canActivate: [AppService] },
             { path: 'learn-arena' , component: LearnArenaComponent, canActivate: [AppService] },
             { path: 'learn-story' , component: LearnStoryComponent, canActivate: [AppService] },
-            { path: '**' , component: ErrorComponent }            
+            { path: '**' , component: ErrorComponent }
         ])
     ],
     exports: [

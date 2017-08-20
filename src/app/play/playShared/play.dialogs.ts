@@ -16,7 +16,8 @@ export class Dialogs {
             `Each ability has an energy cost. It will be displayed on the right of the ability list in parentheses. Each heroes'
             current/max energy (E) and current/max health (H) will be displayed underneath their name on the battlefield.
             If you ever want more details on any of your heroes' abilities, you can click on their name to get a better description.`,
-            `For this tutorial, you will face a few different opponents. They will get progressively harder so that you can learn while you go.`,
+            `For this tutorial, you will face a few different opponents.
+            They will get progressively harder so that you can learn while you go.`,
             `You first battle will be a 1v2. You are controlling Zed, a deadly ninja. Your opponents are Bruiser and Crusher,
             a few street thugs that have been getting a little too cocky. Teach them a lesson!`
         ]
@@ -33,7 +34,8 @@ export class Dialogs {
     tutorialStageTwo(): string[] {
         return [
             `Congratulations, you've defeated Bruiser and Crusher! That's your first win under your belt.`,
-            `That was a good warmup, but now you will face a few more worthy opponents. You will now be matched with 3 evil witch triplets.`,
+            `That was a good warmup, but now you will face a few more worthy opponents.
+            You will now be matched with 3 evil witch triplets.`,
             `Don't worry! You're also getting a new member for your team: Mercy. Mercy isn't very aggresive, but she can use
             powerful spells to keep the rest of her team alive.`,
             `Beware of the witches curse ability. If it isn't cleansed, it can be deadly. Good luck!`
@@ -42,7 +44,8 @@ export class Dialogs {
 
     tutorialStageThree(): string[] {
         return [
-            `You've made it to the third and final stage of the tutorial! Now that you have a few of the basics under your belt, you're going
+            `You've made it to the third and final stage of the tutorial!
+            Now that you have a few of the basics under your belt, you're going
             to be given a real fight!`,
             `Unfortunately for you, your team is against the infamous gods of the elements. These are the most difficult opponents you
             can possibly face, and this fight is totally unfair.`,

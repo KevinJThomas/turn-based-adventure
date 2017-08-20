@@ -40,7 +40,7 @@ export class Scenarios {
             this.createAI('God of Fire', 200, 200, 200, 200, 20, 4, true, [this.abilities.sear(), this.abilities.fireStorm()]),
             this.createAI('God of Earth', 200, 200, 200, 200, 20, 4, true, [this.abilities.callOfNature(), this.abilities.rejuvenation()]),
             this.createAI('God of Shadows', 200, 200, 200, 200, 20, 4, true, [this.abilities.backstab(), this.abilities.ambush()]),
-            this.createAI('God of Water', 200, 200, 200, 200, 20, 4, true, [this.abilities.soak(), this.abilities.waterfall()])            
+            this.createAI('God of Water', 200, 200, 200, 200, 20, 4, true, [this.abilities.soak(), this.abilities.waterfall()])
         ]
     }
 
@@ -64,7 +64,7 @@ export class Scenarios {
             debuffs: [],
             frozen: false,
             abilities: [this.abilities.stab(), this.abilities.slice(), this.abilities.pass()]
-        } 
+        }
     }
 
     tutorialMercy() {
@@ -110,7 +110,7 @@ export class Scenarios {
             debuffs: [],
             frozen: false,
             abilities: [this.abilities.serenity(), this.abilities.spiritTouch(), this.abilities.slash(), this.abilities.pass()]
-        } 
+        }
     }
 
     tutorialJacquelyn() {
@@ -133,7 +133,7 @@ export class Scenarios {
             debuffs: [],
             frozen: false,
             abilities: [this.abilities.volley(), this.abilities.fieryArrow(), this.abilities.powerShot(), this.abilities.pass()]
-        } 
+        }
     }
 
     tutorialYsmay() {
@@ -156,7 +156,7 @@ export class Scenarios {
             debuffs: [],
             frozen: false,
             abilities: [this.abilities.fear(), this.abilities.inspire(), this.abilities.doom(), this.abilities.groundSlam(), this.abilities.pass()]
-        } 
+        }
     }
 
     tutorialRowan() {
@@ -179,7 +179,7 @@ export class Scenarios {
             debuffs: [],
             frozen: false,
             abilities: [this.abilities.bolster(), this.abilities.rally(), this.abilities.shieldSlam(), this.abilities.pass()]
-        } 
+        }
     }
 
     tutorialThea() {
@@ -202,7 +202,7 @@ export class Scenarios {
             debuffs: [],
             frozen: false,
             abilities: [this.abilities.posionMist(), this.abilities.calmingMist(), this.abilities.revitalizingMist(), this.abilities.pass()]
-        } 
+        }
     }
 
     createAI(name: string, currentHealth: number, maxHealth: number, currentEnergy: number, maxEnergy: number, strength: number,

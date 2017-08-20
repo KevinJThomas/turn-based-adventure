@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AbilityTypes } from './play.ability-types';
 
 @Injectable()
-export class Abilities {    
+export class Abilities {
 
     // Tutorial
     // Heroes
@@ -17,7 +17,7 @@ export class Abilities {
             description: 'Stab an enemy'
         }
     }
-    
+
     slice() {
         return {
             name: 'Slice',
@@ -132,7 +132,7 @@ export class Abilities {
             cost: 40,
             turns: 2,
             effect: (target) => {
-                
+
             },
             endEffect: (target) => {
                 target.currentHealth -= 40;
@@ -195,7 +195,7 @@ export class Abilities {
             turns: 3,
             cost: 30,
             effect: (allies) => {
-                for (let ally of allies) {
+                for (const ally of allies) {
                     ally.strength += 10;
                 }
             },
@@ -216,7 +216,7 @@ export class Abilities {
             turns: 1,
             cost: 40,
             effect: (allies) => {
-                for (let ally of allies) {
+                for (const ally of allies) {
                     ally.agility += 25;
                 }
             },
@@ -270,7 +270,7 @@ export class Abilities {
             turns: 999,
             cost: 30,
             effect: (allies) => {
-                for (let ally of allies) {
+                for (const ally of allies) {
                     ally.currentEnergy += 50;
                     ally.maxEnergy += 50;
                 }
@@ -351,7 +351,7 @@ export class Abilities {
             cost: 25,
             turns: 2,
             effect: (target) => {
-                
+
             },
             endEffect: (target) => {
                 target.currentHealth = 0;
@@ -414,7 +414,7 @@ export class Abilities {
             turns: 2,
             cost: 20,
             effect: (allies) => {
-                for (let ally of allies) {
+                for (const ally of allies) {
                     ally.agility += 10;
                 }
             },
@@ -561,7 +561,7 @@ export class Abilities {
             turns: 3,
             cost: 30,
             effect: (enemies) => {
-                for (let enemy of enemies) {
+                for (const enemy of enemies) {
                     enemy.agility -= 5;
                 }
             },

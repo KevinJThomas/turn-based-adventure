@@ -24,7 +24,7 @@ export class PlayDialogComponent implements OnInit {
     async writeText(text: string) {
         this.buttonsDisabled = true;
         this.displayText = '';
-        for (let char of text) {
+        for (const char of text) {
             this.displayText += char;
             await this.sleep(0);
         }
@@ -48,7 +48,7 @@ export class PlayDialogComponent implements OnInit {
         this.pageIndex--;
         this.lastPage = false;
         this.writeText(this.dialogPages[this.pageIndex]);
-        if (this.pageIndex == 0) {
+        if (this.pageIndex === 0) {
             this.firstPage = true;
         }
     }
