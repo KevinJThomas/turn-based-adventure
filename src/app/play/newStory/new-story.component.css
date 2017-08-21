@@ -1,0 +1,44 @@
+.story-title {
+    margin: auto;    
+    font: bold;
+    text-shadow: none;
+}
+
+.story-image {
+    margin: auto;
+    display: block;
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+}
+
+.story-card {
+    width: 300px;
+    margin: auto;
+    display: table-cell;
+    border-radius: 10px;
+}
+
+.story-card:hover {
+    cursor: pointer;
+}
+
+.story-content {
+    margin: auto;
+    display: block;
+    width: 900px;
+    margin-top: 25px;
+    border-spacing: 12px;
+}
+
+.story-toolbar {
+    background-color: white;
+    font-weight: bold;
+}
+
+.title {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 32px;
+    font-weight: bold;
+}
