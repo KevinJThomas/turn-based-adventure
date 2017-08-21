@@ -5,4 +5,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./new-story.component.css']
 })
 export class NewStoryComponent {
+    warriorUrl = '../../assets/dwarf_warrior.jpg';
+    rangerUrl = '../../assets/human_ranger2.jpg';
+    warlockUrl = '../../assets/human_warlock.jpg';
 }
