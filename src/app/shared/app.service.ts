@@ -6,6 +6,8 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 
+import { Heroes } from './app.heroes';
+
 import * as firebase from 'firebase';
 
 @Injectable()
@@ -96,5 +98,55 @@ export class AppService implements CanActivate {
                 muteSound: user.muteSound,
                 showNameplates: user.showNameplates
             });
+    }
+
+    newStory(heroName: string, stamina: number, strength: number, agility: number, magic: number) {
+        let theUser: any;
+        const heroType = this.findHeroType(heroName);
+        let gameKey: string;
+
+        const dbRef = firebase.database().ref('users/');        
+        dbRef.once('value')
+        .then((snapshot) => {
+            const tmp: string[] = snapshot.val();
+            console.log(Object.keys(tmp).map(key => tmp[key]));
+            theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.getUserId())[0];
+        }).then(() => {
+            if (theUser) {
+                const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/');
+                const newGame = gameDbRef.push();
+                newGame.set ({
+                    id: newGame.key,
+                    storyLine: heroType,
+                    name: 'placeholderName'
+                });
+                gameKey = newGame.key;
+            }
+        }).then(() => {
+            const teamDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(gameKey).child('team/');
+            const newTeam = teamDbRef.push();
+            newTeam.set ({
+                id: newTeam.key,
+                name: heroName,
+                stamina: stamina,
+                strength: strength,
+                agility: agility,
+                magic: magic
+            });
+        });
+    }
+
+    findHeroType(heroName: string) {
+        switch(heroName) {
+            case 'Burmi': {
+                return Heroes.Burmi;
+            }
+            case 'Elvashj': {
+                return Heroes.Elvashj;
+            }
+            case 'Ushuna': {
+                return Heroes.Ushuna;
+            }
+        }
     }
 }

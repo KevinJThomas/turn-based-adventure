@@ -1,22 +1,36 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { AppService } from '../../shared/app.service';
 
 @Component({
     templateUrl: './customize-character.component.html',
     styleUrls: ['./customize-character.component.css']
 })
-export class CustomizeCharacterComponent {
+export class CustomizeCharacterComponent implements OnInit, OnDestroy {
     availablePoints = 10;
     baseStamina = 1;
-    baseStrength = 2;
-    baseAgility = 3;
-    baseMagic = 4;
+    baseStrength = 1;
+    baseAgility = 1;
+    baseMagic = 1;
     stamina = 1;
-    strength = 2;
-    agility = 3;
-    magic = 4;
+    strength = 1;
+    agility = 1;
+    magic = 1;
+    sub: any;
+    heroName: string;
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private route: ActivatedRoute, private appSVC: AppService) {}
+
+    ngOnInit() {
+        this.sub = this.route.params.subscribe(params => {
+            this.heroName = params['hero'];
+        });
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
 
     increaseStamina() {
         if (this.availablePoints > 0) {
@@ -74,8 +88,8 @@ export class CustomizeCharacterComponent {
         }
     }
 
-    apply() {
-
+    create() {        
+        this.appSVC.newStory(this.heroName, this.stamina, this.strength, this.agility, this.magic);
     }
 
     cancel() {

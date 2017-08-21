@@ -41,7 +41,7 @@ const PlayRoutes: Routes = [
             { path: 'continue-story', component: ContinueStoryComponent, canActivate: [AppService] },
             { path: 'the-arena', component: TheArenaComponent, canActivate: [AppService] },
             { path: 'tutorial', component: TutorialComponent, canActivate: [AppService] },
-            { path: 'customize', component: CustomizeCharacterComponent, canActivate: [AppService] }
+            { path: 'customize/:hero', component: CustomizeCharacterComponent, canActivate: [AppService] }
         ]
     },
 ];

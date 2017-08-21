@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Heroes } from '../../shared/app.heroes';
 import { AbilityTypes } from './play.ability-types';
 import { Abilities } from './play.abilities';
 
@@ -56,7 +55,6 @@ export class Scenarios {
             strength: 5,
             agility: 5,
             alive: true,
-            heroIndex: Heroes.Warrior,
             targetableAbilitySet: false,
             friendlyTargetableAbilitySet: false,
             ready: false,
@@ -79,7 +77,6 @@ export class Scenarios {
             strength: 5,
             agility: 4,
             alive: true,
-            heroIndex: Heroes.Cleric,
             targetableAbilitySet: false,
             friendlyTargetableAbilitySet: false,
             ready: false,
@@ -102,7 +99,6 @@ export class Scenarios {
             strength: 15,
             agility: 5,
             alive: true,
-            heroIndex: Heroes.Warrior,
             targetableAbilitySet: false,
             friendlyTargetableAbilitySet: false,
             ready: false,
@@ -125,7 +121,6 @@ export class Scenarios {
             strength: 15,
             agility: 5,
             alive: true,
-            heroIndex: Heroes.Warrior,
             targetableAbilitySet: false,
             friendlyTargetableAbilitySet: false,
             ready: false,
@@ -148,7 +143,6 @@ export class Scenarios {
             strength: 15,
             agility: 5,
             alive: true,
-            heroIndex: Heroes.Warrior,
             targetableAbilitySet: false,
             friendlyTargetableAbilitySet: false,
             ready: false,
@@ -171,7 +165,6 @@ export class Scenarios {
             strength: 15,
             agility: 5,
             alive: true,
-            heroIndex: Heroes.Warrior,
             targetableAbilitySet: false,
             friendlyTargetableAbilitySet: false,
             ready: false,
@@ -194,7 +187,6 @@ export class Scenarios {
             strength: 15,
             agility: 5,
             alive: true,
-            heroIndex: Heroes.Warrior,
             targetableAbilitySet: false,
             friendlyTargetableAbilitySet: false,
             ready: false,

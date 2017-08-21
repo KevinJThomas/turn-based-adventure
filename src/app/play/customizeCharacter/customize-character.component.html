@@ -2,7 +2,7 @@
 
 <md-card class="customize-card">
     <md-toolbar class="customize-toolbar">
-        <span class="customize-title">Burmi</span>
+        <span class="customize-title">{{heroName}}</span>
     </md-toolbar>
     <md-card-content>
         <div class="stat-label">Stamina: {{stamina}}</div>
@@ -21,7 +21,7 @@
     </md-card-content>
     <md-card-actions>
         <div class="button-row">                
-            <button md-raised-button class="customize-button" (click)="apply()">Apply</button>
+            <button md-raised-button class="customize-button" [disabled]="availablePoints > 0" (click)="create()">Create</button>
             <button md-raised-button class="customize-button" (click)="cancel()">Cancel</button>            
         </div>
     </md-card-actions>  

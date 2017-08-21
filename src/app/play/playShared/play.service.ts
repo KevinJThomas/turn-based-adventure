@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
-import { Heroes } from '../../shared/app.heroes';
 import { AbilityTypes } from './play.ability-types';
 import { WinConditions } from './play.win-conditions';
 import { Scenarios } from './play.scenarios';
