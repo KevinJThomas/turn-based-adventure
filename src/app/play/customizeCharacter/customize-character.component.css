@@ -1,0 +1,46 @@
+.customize-card {
+    margin: auto;
+    display: block;
+    margin-top: 10%;
+    width: 25%;
+    border-radius: 10px;
+}
+
+.customize-toolbar {
+    background-color: white;
+    font-weight: bold;
+}
+
+.customize-title {
+    margin: auto;    
+    font: bold;
+    text-shadow: none;
+}
+
+.stat-button {
+    background-color: #DAD5D5;
+    margin-bottom: 20px;
+}
+
+.stat-label {
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.available-points {
+    text-align: center;
+    margin-top: 35px;
+    font-weight: bold;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.customize-button {
+    width: 50%;
+    text-align: center;
+    border-radius: 10px;
+}

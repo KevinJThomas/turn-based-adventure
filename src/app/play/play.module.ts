@@ -22,6 +22,7 @@ import { ContinueStoryComponent } from './continueStory/continue-story.component
 import { TheArenaComponent } from './theArena/the-arena.component';
 import { PlayDialogComponent } from './playShared/playDialog/play-dialog.component';
 import { HeroDialogComponent } from './playShared/heroDialog/hero-dialog.component';
+import { CustomizeCharacterComponent } from './customizeCharacter/customize-character.component';
 
 import { AppService } from '../shared/app.service';
 import { PlayService } from './playShared/play.service';
@@ -39,7 +40,8 @@ const PlayRoutes: Routes = [
             { path: 'new-story', component: NewStoryComponent, canActivate: [AppService] },
             { path: 'continue-story', component: ContinueStoryComponent, canActivate: [AppService] },
             { path: 'the-arena', component: TheArenaComponent, canActivate: [AppService] },
-            { path: 'tutorial', component: TutorialComponent, canActivate: [AppService] }
+            { path: 'tutorial', component: TutorialComponent, canActivate: [AppService] },
+            { path: 'customize', component: CustomizeCharacterComponent, canActivate: [AppService] }
         ]
     },
 ];
@@ -74,6 +76,7 @@ const PlayRoutes: Routes = [
         TheArenaComponent,
         PlayDialogComponent,
         HeroDialogComponent,
+        CustomizeCharacterComponent,
         TwoDigitPipe
     ],
     providers: [
