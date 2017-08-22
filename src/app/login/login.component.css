@@ -16,6 +16,7 @@
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 10px;
 }
 
 .login-title {
@@ -28,6 +29,7 @@
     width: 100%;
     text-align: center;
     margin-top: 50px;
+    border-radius: 10px;
 }
 
 .register-button {
@@ -35,6 +37,7 @@
     margin: auto;
     display: block;
     margin-top: 7%;
+    border-radius: 10px;
 }
 
 .input-boxes {

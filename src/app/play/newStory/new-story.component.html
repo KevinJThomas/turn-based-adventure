@@ -2,7 +2,7 @@
 
 <div class="title">Choose Your Story Line</div>
 <div class="story-content">
-    <md-card class="story-card">
+    <md-card class="story-card" [routerLink]="['/play/customize', 'Burmi']">
         <md-toolbar class="story-toolbar">
             <span class="story-title">Burmi</span>
         </md-toolbar>
@@ -10,7 +10,7 @@
             <img class="story-image" [src]="warriorUrl">
         </md-card-content>
     </md-card>
-    <md-card class="story-card">
+    <md-card class="story-card" [routerLink]="['/play/customize', 'Elvashj']">
         <md-toolbar class="story-toolbar">
             <span class="story-title">Elvashj</span>
         </md-toolbar>
@@ -18,7 +18,7 @@
             <img class="story-image" [src]="rangerUrl">
         </md-card-content>
     </md-card>
-    <md-card class="story-card">
+    <md-card class="story-card" [routerLink]="['/play/customize', 'Ushuna']">
         <md-toolbar class="story-toolbar">
             <span class="story-title">Ushuna</span>
         </md-toolbar>

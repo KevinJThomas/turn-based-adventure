@@ -1,6 +1,5 @@
 export enum Heroes {
-    Warrior,
-    Ranger,
-    Mage,
-    Cleric
+    Burmi,
+    Elvashj,
+    Ushuna
 }

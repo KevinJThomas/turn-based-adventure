@@ -6,12 +6,18 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 
+import { Heroes } from './app.heroes';
+
 import * as firebase from 'firebase';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AppService implements CanActivate {
     userLoggedIn = false;
     authUser: any;
+    currentGame: string;
 
     constructor(private router: Router) {}
 
@@ -96,5 +102,57 @@ export class AppService implements CanActivate {
                 muteSound: user.muteSound,
                 showNameplates: user.showNameplates
             });
+    }
+
+    async newStory(storyName: string, heroName: string, stamina: number, strength: number, agility: number, magic: number) {
+        let theUser: any;
+        const heroType = this.findHeroType(heroName);
+
+        const dbRef = firebase.database().ref('users/');        
+        dbRef.once('value')
+        .then((snapshot) => {
+            const tmp: string[] = snapshot.val();
+            theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.getUserId())[0];
+        }).then(() => {
+            if (theUser) {
+                const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/');
+                const newGame = gameDbRef.push();
+                newGame.set ({
+                    id: newGame.key,
+                    storyLine: heroType,
+                    name: storyName
+                });
+                this.currentGame = newGame.key;
+            }
+        }).then(() => {
+            const teamDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(this.currentGame).child('team/');
+            const newTeam = teamDbRef.push();
+            newTeam.set ({
+                id: newTeam.key,
+                name: heroName,
+                stamina: stamina,
+                strength: strength,
+                agility: agility,
+                magic: magic
+            });
+        });
+    }
+
+    getCurrentGame(): string {
+        return this.currentGame;
+    }
+
+    findHeroType(heroName: string) {
+        switch(heroName) {
+            case 'Burmi': {
+                return Heroes.Burmi;
+            }
+            case 'Elvashj': {
+                return Heroes.Elvashj;
+            }
+            case 'Ushuna': {
+                return Heroes.Ushuna;
+            }
+        }
     }
 }

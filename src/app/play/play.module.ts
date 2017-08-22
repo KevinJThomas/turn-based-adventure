@@ -10,7 +10,8 @@ import {
     MdSelectModule,
     MdDialogModule,
     MdListModule,
-    MdTooltipModule
+    MdTooltipModule,
+    MdProgressSpinnerModule
   } from '@angular/material';
 
 import { NavComponent } from '../shared/navbar/navbar.component';
@@ -22,6 +23,8 @@ import { ContinueStoryComponent } from './continueStory/continue-story.component
 import { TheArenaComponent } from './theArena/the-arena.component';
 import { PlayDialogComponent } from './playShared/playDialog/play-dialog.component';
 import { HeroDialogComponent } from './playShared/heroDialog/hero-dialog.component';
+import { CustomizeCharacterComponent } from './customizeCharacter/customize-character.component';
+import { GameComponent } from './game/game.component';
 
 import { AppService } from '../shared/app.service';
 import { PlayService } from './playShared/play.service';
@@ -39,7 +42,9 @@ const PlayRoutes: Routes = [
             { path: 'new-story', component: NewStoryComponent, canActivate: [AppService] },
             { path: 'continue-story', component: ContinueStoryComponent, canActivate: [AppService] },
             { path: 'the-arena', component: TheArenaComponent, canActivate: [AppService] },
-            { path: 'tutorial', component: TutorialComponent, canActivate: [AppService] }
+            { path: 'tutorial', component: TutorialComponent, canActivate: [AppService] },
+            { path: 'customize/:hero', component: CustomizeCharacterComponent, canActivate: [AppService] },
+            { path: 'game/:id', component: GameComponent, canActivate: [AppService] }
         ]
     },
 ];
@@ -57,6 +62,7 @@ const PlayRoutes: Routes = [
         MdDialogModule,
         MdListModule,
         MdTooltipModule,
+        MdProgressSpinnerModule,
         RouterModule.forChild(PlayRoutes)
     ],
     exports: [
@@ -74,6 +80,8 @@ const PlayRoutes: Routes = [
         TheArenaComponent,
         PlayDialogComponent,
         HeroDialogComponent,
+        CustomizeCharacterComponent,
+        GameComponent,
         TwoDigitPipe
     ],
     providers: [
