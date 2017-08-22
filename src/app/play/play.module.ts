@@ -11,7 +11,8 @@ import {
     MdDialogModule,
     MdListModule,
     MdTooltipModule,
-    MdProgressSpinnerModule
+    MdProgressSpinnerModule,
+    MdGridListModule
   } from '@angular/material';
 
 import { NavComponent } from '../shared/navbar/navbar.component';
@@ -63,6 +64,7 @@ const PlayRoutes: Routes = [
         MdListModule,
         MdTooltipModule,
         MdProgressSpinnerModule,
+        MdGridListModule,
         RouterModule.forChild(PlayRoutes)
     ],
     exports: [

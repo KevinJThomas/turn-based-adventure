@@ -17,7 +17,8 @@ import 'rxjs/add/operator/map';
 export class AppService implements CanActivate {
     userLoggedIn = false;
     authUser: any;
-    currentGame: string;
+    currentGame: string;    
+    gameList: any[];
 
     constructor(private router: Router) {}
 
@@ -102,6 +103,30 @@ export class AppService implements CanActivate {
                 muteSound: user.muteSound,
                 showNameplates: user.showNameplates
             });
+    }
+
+    getGameList() {
+        return this.gameList;
+    }
+
+    loadGameList() {
+        let theUser: any;
+
+        const dbRef = firebase.database().ref('users/');        
+        dbRef.once('value')
+        .then((snapshot) => {
+            const tmp: string[] = snapshot.val();
+            theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.getUserId())[0];
+        }).then((snapshot) => {            
+            if (theUser) {
+                const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/');
+                gameDbRef.once('value')
+                .then((snapshot) => {
+                    const tmp: string[] = snapshot.val();
+                    this.gameList = Object.keys(tmp).map(key => tmp[key]);
+                });                
+            }
+        });
     }
 
     async newStory(storyName: string, heroName: string, stamina: number, strength: number, agility: number, magic: number) {
