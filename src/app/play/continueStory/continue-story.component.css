@@ -1,0 +1,35 @@
+.mini-img {
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+.spacer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.game-list {
+    width: 80%;
+    margin: auto;
+    display: block;
+}
+
+.spinner {
+    margin: auto;
+    display: block;
+    margin-top: 200px;
+}
+
+button {
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 125px;
+    text-align: center;
+}
+
+.game-name {
+    font-size: 20px;
+    font-weight: bold;
+}
