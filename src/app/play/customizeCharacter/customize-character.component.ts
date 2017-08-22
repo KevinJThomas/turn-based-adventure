@@ -19,6 +19,8 @@ export class CustomizeCharacterComponent implements OnInit, OnDestroy {
     magic = 1;
     sub: any;
     heroName: string;
+    loading = false;
+    storyName: string;
 
     constructor(private router: Router, private route: ActivatedRoute, private appSVC: AppService) {}
 
@@ -88,11 +90,20 @@ export class CustomizeCharacterComponent implements OnInit, OnDestroy {
         }
     }
 
-    create() {        
-        this.appSVC.newStory(this.heroName, this.stamina, this.strength, this.agility, this.magic);
+    async create() {
+        this.loading = true;
+        this.appSVC.newStory(this.storyName, this.heroName, this.stamina, this.strength, this.agility, this.magic);
+        await this.sleep(2000);
+        const gameKey = this.appSVC.getCurrentGame();
+        this.loading = false;
+        this.router.navigate(['/play/game/', gameKey]);
     }
 
     cancel() {
         this.router.navigate(['/play/new-story']);
+    }
+
+    sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }

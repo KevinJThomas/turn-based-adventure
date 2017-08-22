@@ -44,3 +44,14 @@
     text-align: center;
     border-radius: 10px;
 }
+
+.spinner {
+    margin: auto;
+    display: block;
+    margin-top: 200px;
+}
+
+.story-name {
+    display: block;
+    width: 100%;
+}

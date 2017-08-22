@@ -9,11 +9,15 @@ import {
 import { Heroes } from './app.heroes';
 
 import * as firebase from 'firebase';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AppService implements CanActivate {
     userLoggedIn = false;
     authUser: any;
+    currentGame: string;
 
     constructor(private router: Router) {}
 
@@ -100,16 +104,14 @@ export class AppService implements CanActivate {
             });
     }
 
-    newStory(heroName: string, stamina: number, strength: number, agility: number, magic: number) {
+    async newStory(storyName: string, heroName: string, stamina: number, strength: number, agility: number, magic: number) {
         let theUser: any;
         const heroType = this.findHeroType(heroName);
-        let gameKey: string;
 
         const dbRef = firebase.database().ref('users/');        
         dbRef.once('value')
         .then((snapshot) => {
             const tmp: string[] = snapshot.val();
-            console.log(Object.keys(tmp).map(key => tmp[key]));
             theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.getUserId())[0];
         }).then(() => {
             if (theUser) {
@@ -118,12 +120,12 @@ export class AppService implements CanActivate {
                 newGame.set ({
                     id: newGame.key,
                     storyLine: heroType,
-                    name: 'placeholderName'
+                    name: storyName
                 });
-                gameKey = newGame.key;
+                this.currentGame = newGame.key;
             }
         }).then(() => {
-            const teamDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(gameKey).child('team/');
+            const teamDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(this.currentGame).child('team/');
             const newTeam = teamDbRef.push();
             newTeam.set ({
                 id: newTeam.key,
@@ -134,6 +136,10 @@ export class AppService implements CanActivate {
                 magic: magic
             });
         });
+    }
+
+    getCurrentGame(): string {
+        return this.currentGame;
     }
 
     findHeroType(heroName: string) {
