@@ -19,7 +19,7 @@ export class ContinueStoryComponent implements OnInit {
 
     async ngOnInit() {
         const testing = this.appSVC.loadGameList();
-        await this.sleep(2000);
+        await this.sleep(1500);
         this.loading = false;
         this.gameList = this.appSVC.getGameList();
     }
@@ -29,14 +29,7 @@ export class ContinueStoryComponent implements OnInit {
     }
 
     getHeroImg(storyLine: number) {
-        switch (storyLine) {
-            case 0:
-                return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fdwarf_warrior.jpg?alt=media&token=25b7f4ed-0450-410c-b1c3-3ed85e41441c';
-            case 1:
-                return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fhuman_ranger2.jpg?alt=media&token=78a0b97d-d74c-4e84-951e-3ed3d54e5eba';
-            case 2:
-                return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fhuman_warlock.jpg?alt=media&token=4a92c3b3-9982-4058-9eb9-01e1fbab2075';
-        }
+        return this.appSVC.getHeroImg(storyLine);
     }
 
     play(game: any) {
@@ -44,6 +37,6 @@ export class ContinueStoryComponent implements OnInit {
     }
 
     moreDetails(game: any) {
-        // make a more details page
+        this.router.navigate(['/play/details/', game.id]);
     }
 }

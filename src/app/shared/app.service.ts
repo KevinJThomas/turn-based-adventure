@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 
 import { Heroes } from './app.heroes';
+import { AbilityTypes } from '../play/playShared/play.ability-types';
 
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
@@ -129,7 +130,7 @@ export class AppService implements CanActivate {
         });
     }
 
-    async newStory(storyName: string, heroName: string, stamina: number, strength: number, agility: number, magic: number) {
+    async newStory(storyName: string, heroName: string, stamina: number, strength: number, agility: number, magic: number, energy: number) {
         let theUser: any;
         const heroType = this.findHeroType(heroName);
 
@@ -145,7 +146,8 @@ export class AppService implements CanActivate {
                 newGame.set ({
                     id: newGame.key,
                     storyLine: heroType,
-                    name: storyName
+                    name: storyName,
+                    stage: 0
                 });
                 this.currentGame = newGame.key;
             }
@@ -155,10 +157,24 @@ export class AppService implements CanActivate {
             newTeam.set ({
                 id: newTeam.key,
                 name: heroName,
+                level: 1,
+                xp: 0,
                 stamina: stamina,
                 strength: strength,
                 agility: agility,
-                magic: magic
+                magic: magic,
+                energy: energy,
+                heroId: heroType
+            });
+            const heroDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(this.currentGame).child('team/')
+                .child(newTeam.key).child('abilities/');
+            const newAbilities = heroDbRef.push();
+            newAbilities.set ({
+                name: 'Slice',
+                typeIndex: AbilityTypes.SingleTargetDamage,
+                power: 4,
+                cost: 5,
+                description: 'Slice an enemy'
             });
         });
     }
@@ -178,6 +194,17 @@ export class AppService implements CanActivate {
             case 'Ushuna': {
                 return Heroes.Ushuna;
             }
+        }
+    }
+
+    getHeroImg(hero: number) {
+        switch (hero) {
+            case 0:
+                return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fdwarf_warrior.jpg?alt=media&token=25b7f4ed-0450-410c-b1c3-3ed85e41441c';
+            case 1:
+                return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fhuman_ranger2.jpg?alt=media&token=78a0b97d-d74c-4e84-951e-3ed3d54e5eba';
+            case 2:
+                return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fhuman_warlock.jpg?alt=media&token=4a92c3b3-9982-4058-9eb9-01e1fbab2075';
         }
     }
 }

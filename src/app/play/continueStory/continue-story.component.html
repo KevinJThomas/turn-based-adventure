@@ -7,8 +7,8 @@
                 <p class="game-name">{{game.name}}</p>
             </md-grid-tile>
             <md-grid-tile [colspan]="6" [rowspan]="3">
-                    <img class="mini-img" [src]="getHeroImg(game.storyLine)">
-                </md-grid-tile>
+                <img class="mini-img" [src]="getHeroImg(game.storyLine)">
+            </md-grid-tile>
             <md-grid-tile [colspan]="6" [rowspan]="1">
                 <button md-raised-button (click)="moreDetails(game)">More Details</button>
                 <button md-raised-button (click)="play(game)">Play</button>                

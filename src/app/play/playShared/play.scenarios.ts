@@ -9,6 +9,7 @@ export class Scenarios {
 
     constructor(private abilities: Abilities) {}
 
+    // Tutorial
     tutorial() {
         return {
             player: [ this.tutorialZed() ],
@@ -213,7 +214,16 @@ export class Scenarios {
                 buffs: [],
                 debuffs: [],
                 frozen: false,
-                abilities: abilities
+                abilityList: abilities
             }
+    }
+
+    // Basic
+    rats(count: number) {
+        let ratArray = [];
+        for (var i = 0; i < count; i++) {
+            ratArray.push(this.createAI('Rat', 4, 4, 15, 15, 2, 2, true, [this.abilities.ratScratch()]));
+        }
+        return ratArray;
     }
 }
