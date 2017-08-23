@@ -583,6 +583,7 @@ export class Abilities {
         }
     }
 
+    // Basic
     pass() {
         return {
             name: 'Pass',
@@ -590,6 +591,16 @@ export class Abilities {
             power: 0,
             cost: 0,
             description: 'Pass your turn'
+        }
+    }
+
+    ratScratch() {
+        return {
+            name: 'Scratch',
+            typeIndex: AbilityTypes.SingleTargetDamage,
+            power: 1,
+            cost: 3,
+            description: 'Scratch an enemy'
         }
     }
 }

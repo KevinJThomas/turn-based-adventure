@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
+import { Dialogs } from './play.dialogs';
+import { Heroes } from '../../shared/app.heroes';
+import { Abilities } from './play.abilities';
 import { AbilityTypes } from './play.ability-types';
 import { WinConditions } from './play.win-conditions';
 import { Scenarios } from './play.scenarios';
 import { PlayDialogComponent } from '../playShared/playDialog/play-dialog.component';
 import { HeroDialogComponent } from '../playShared/heroDialog/hero-dialog.component';
+import { AppService } from '../../shared/app.service';
 
+import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
@@ -14,10 +19,13 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PlayService {
     theGame: any;
+    gameObject: any;
     playerActions = [];
     enemyActions = [];
+    stage: number;
+    storyLine: number;
 
-    constructor(private scenarios: Scenarios, private dialog: MdDialog) {}
+    constructor(private scenarios: Scenarios, private dialog: MdDialog, private appSVC: AppService, private abilities: Abilities, private dialogs: Dialogs) {}
 
     clearLog() {
         this.theGame.playByPlay = '';
@@ -56,6 +64,124 @@ export class PlayService {
         this.theGame.player = this.scenarios.tutorialPlayerArmy();
         this.theGame.enemy = this.scenarios.tutorialEnemyArmy();
         this.theGame.playByPlay = '';
+    }
+
+    setupGame(gameId: string) {
+        this.theGame = {
+            player: [],
+            enemy: [],
+            playByPlay: ''
+        };
+        let theUser: any;
+        
+        const dbRef = firebase.database().ref('users/');        
+        dbRef.once('value')
+        .then((snapshot) => {
+            const tmp: string[] = snapshot.val();
+            theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.appSVC.getUserId())[0];
+        }).then((snapshot) => {            
+            if (theUser) {
+                const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/');
+                gameDbRef.once('value')
+                .then((snapshot) => {
+                    const tmp: string[] = snapshot.val();
+                    const gameInfo = Object.keys(tmp).map(key => tmp[key]).filter(game => game.id === gameId)[0];
+                    this.stage = gameInfo.stage;
+                    this.storyLine = gameInfo.storyLine;
+                });
+                const teamDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(gameId).child('team/');
+                teamDbRef.once('value')
+                .then((snapshot) => {
+                    const tmp: string[] = snapshot.val();
+                    this.theGame.player = Object.keys(tmp).map(key => tmp[key]);
+                    for (let hero of this.theGame.player) {
+                        const heroDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(gameId).child('team/')
+                            .child(hero.id).child('abilities/');
+                        heroDbRef.once('value')
+                        .then((snapshot) => {
+                            const tmp: string[] = snapshot.val();
+                            hero.abilityList = Object.keys(tmp).map(key => tmp[key]);
+                            hero.abilityList.push(this.abilities.pass());
+                        })
+                        hero.currentHealth = this.calculateHealth(hero);
+                        hero.maxHealth = this.calculateHealth(hero);
+                        hero.currentEnergy = this.calculateEnergy(hero);
+                        hero.maxEnergy = this.calculateEnergy(hero);
+                        hero.alive = true;
+                        hero.targetableAbilitySet = false;
+                        hero.friendlyTargetableAbilitySet = false;
+                        hero.ready = false;
+                        hero.buffs = [];
+                        hero.debuffs = [];
+                        hero.frozen = false;
+                    }
+                });
+            }
+        });
+    }
+
+    calculateHealth(hero: any) {
+        return (hero.level * 3) + (hero.stamina * 4);
+    }
+
+    calculateEnergy(hero: any) {
+        return 20 + (hero.level * 4) + (hero.energy * 5);
+    }
+
+    playGame(): Observable<any[]> {
+        this.theGame.enemy = this.findScenario();
+        return Observable.of(this.theGame);
+    }
+
+    findScenario() {
+        switch (this.storyLine) {
+            case Heroes.Burmi: {
+                switch (this.stage) {
+                    case 0: {
+                        return this.scenarios.rats(4);
+                    }
+                    default: {
+                        console.log('ERROR: Default in play.service.ts.findScenario() (Burmi.stage) hit');
+                    }
+                }
+                break;
+            }
+            case Heroes.Elvashj: {
+                // Coming soon
+            }
+            case Heroes.Ushuna: {
+                // Coming soon
+            }
+            default: {
+                console.log('ERROR: Default in play.service.ts.findScenario() (storyLine) hit');
+            }
+        }
+    }
+
+    openStoryDialog() {
+        switch (this.storyLine) {
+            case Heroes.Burmi: {
+                switch (this.stage) {
+                    case 0: {
+                        this.openDialog(this.dialogs.burmiIntro());
+                        break;
+                    }
+                    default: {
+                        console.log('ERROR: Default in play.service.ts.openStoryDialog() (Burmi.stage) hit');
+                    }
+                }
+                break;
+            }
+            case Heroes.Elvashj: {
+                // Coming soon
+            }
+            case Heroes.Ushuna: {
+                // Coming soon
+            }
+            default: {
+                console.log('ERROR: Default in play.service.ts.openStoryDialog() (storyLine) hit');
+            }
+        }
     }
 
     setAbility(player: any, ability: any) {
@@ -150,7 +276,7 @@ export class PlayService {
     }
 
     findEnemyAbility(enemy: any) {
-        const availableAbilities = enemy.abilities.filter(ability => ability.cost <= enemy.currentEnergy);
+        const availableAbilities = enemy.abilityList.filter(ability => ability.cost <= enemy.currentEnergy);
         return availableAbilities[this.getRandomNumber(0, availableAbilities.length - 1)];
     }
 

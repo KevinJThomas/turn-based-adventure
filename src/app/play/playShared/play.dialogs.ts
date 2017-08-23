@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Dialogs {
+    // Tutorial
     tutorialIntro(): string[] {
         return [
             `Welcome to Prestige! This tutorial will teach you all of the basics you will need to know to start your own story.
@@ -59,5 +60,21 @@ export class Dialogs {
             `Wow! You made it through the whole tutorial! It looks like you are ready for a real battle!`,
             `Try recruting a team in story mode and see how strong you can become, or try a fight to the death in the arena! Good luck!`
         ]
+    }
+
+    // Burmi
+    burmiIntro(): string[] {
+        return [
+            `Your name is Burmi. You're a young and aggresive dwarf who is looking to prove himself to the world. Your home, Ironforge, is far too boring
+            to keep you here any longer.`,
+            `It's time for a trip, no, an adventure. You're ready, and you head outside through the magnificent gates of Ironforge, unsure if you'll even return.`,
+            `. . .`,
+            `grrrrrrr`,
+            `Be careful! There are wolves on the sides of the path, but they don't seem to be able to come on the path. You're a little scared of them,
+            but you're Burmi of Ironforge; nothing can get to you.`,
+            `Eventually you stumble across an old, abandoned log cabin. Since it's getting late, you decide maybe you'll head inside and rest`,
+            `You slowly open the door, and you don't see anyone inside. Perfect! You could use a rest. Wait a minute, what is that noise from the corners. . .`,
+            `You look around to see cat-sized rats coming out of the shadows. You're surrounded!`
+        ];
     }
 }
