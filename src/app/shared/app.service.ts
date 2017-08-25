@@ -20,6 +20,8 @@ export class AppService implements CanActivate {
     authUser: any;
     currentGame: string;    
     gameList: any[];
+    theGame: any;
+    team: any[];
 
     constructor(private router: Router) {}
 
@@ -143,12 +145,39 @@ export class AppService implements CanActivate {
             if (theUser) {
                 const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/');
                 const newGame = gameDbRef.push();
-                newGame.set ({
-                    id: newGame.key,
-                    storyLine: heroType,
-                    name: storyName,
-                    stage: 0
-                });
+                switch (heroType) {
+                    case (Heroes.Burmi): {
+                        newGame.set ({
+                            id: newGame.key,
+                            storyLine: heroType,
+                            name: storyName,
+                            stage: 0,
+                            location: 'Ironforge Forest'
+                        });
+                    }
+                    case (Heroes.Elvashj): {
+                        newGame.set ({
+                            id: newGame.key,
+                            storyLine: heroType,
+                            name: storyName,
+                            stage: 0,
+                            location: 'Elemental Cave'
+                        });
+                    }
+                    case (Heroes.Ushuna): {
+                        newGame.set ({
+                            id: newGame.key,
+                            storyLine: heroType,
+                            name: storyName,
+                            stage: 0,
+                            location: 'Dread Swamp'
+                        });
+                    }
+                    default: {
+                        console.log('ERROR: Default in app.service.ts.newStory() hit');
+                    }
+                }
+                
                 this.currentGame = newGame.key;
             }
         }).then(() => {
@@ -169,14 +198,85 @@ export class AppService implements CanActivate {
             const heroDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(this.currentGame).child('team/')
                 .child(newTeam.key).child('abilities/');
             const newAbilities = heroDbRef.push();
-            newAbilities.set ({
-                name: 'Slice',
-                typeIndex: AbilityTypes.SingleTargetDamage,
-                power: 4,
-                cost: 5,
-                description: 'Slice an enemy'
-            });
+            switch (heroType) {
+                case (Heroes.Burmi): {
+                    newAbilities.set ({
+                        name: 'Slice',
+                        typeIndex: AbilityTypes.SingleTargetDamage,
+                        power: 4,
+                        cost: 5,
+                        description: 'Slice an enemy'
+                    });
+                }
+                case (Heroes.Elvashj): {
+                    // TODO: Add starting ability
+                    newAbilities.set ({
+                        name: 'Slice',
+                        typeIndex: AbilityTypes.SingleTargetDamage,
+                        power: 4,
+                        cost: 5,
+                        description: 'Slice an enemy'
+                    });
+                }
+                case (Heroes.Ushuna): {
+                    // TODO: Add starting ability
+                    newAbilities.set ({
+                        name: 'Slice',
+                        typeIndex: AbilityTypes.SingleTargetDamage,
+                        power: 4,
+                        cost: 5,
+                        description: 'Slice an enemy'
+                    });
+                }
+                default: {
+                    console.log('ERROR: Default in app.service.ts.newStory() hit');
+                }
+            }
         });
+    }
+
+    setGameInfo(gameId: string) {
+        let theUser: any;
+
+        const dbRef = firebase.database().ref('users/');        
+        dbRef.once('value')
+        .then((snapshot) => {
+            const tmp: string[] = snapshot.val();
+            theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.getUserId())[0];
+        }).then(() => {
+            if (theUser) {
+                const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/');
+                gameDbRef.once('value')
+                .then((snapshot) => {
+                    const tmp: string[] = snapshot.val();
+                    this.theGame = Object.keys(tmp).map(key => tmp[key]).filter(game => game.id === gameId)[0];
+                }).then(() => {
+                    const teamDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(gameId).child('team/');
+                    teamDbRef.once('value')
+                    .then((snapshot) => {
+                        const tmp: string[] = snapshot.val();
+                        this.team = Object.keys(tmp).map(key => tmp[key]);
+                        for (let hero of this.team) {
+                            const abilitiesDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(gameId).child('team/')
+                                .child(hero.id).child('abilities/');
+                            abilitiesDbRef.once('value')
+                            .then((snapshot) => {
+                                const tmp: string[] = snapshot.val();
+                                hero.abilityList = Object.keys(tmp).map(key => tmp[key]);
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    }
+
+    getGameInfo() {
+        return this.theGame;
+    }
+
+    getTeamInfo() {
+        return this.team;
     }
 
     getCurrentGame(): string {
@@ -205,6 +305,8 @@ export class AppService implements CanActivate {
                 return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fhuman_ranger2.jpg?alt=media&token=78a0b97d-d74c-4e84-951e-3ed3d54e5eba';
             case 2:
                 return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fhuman_warlock.jpg?alt=media&token=4a92c3b3-9982-4058-9eb9-01e1fbab2075';
+            default:
+                return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fdefault.jpg?alt=media&token=a05dc774-e053-4f72-966a-fe1ebbef2785';
         }
     }
 }
