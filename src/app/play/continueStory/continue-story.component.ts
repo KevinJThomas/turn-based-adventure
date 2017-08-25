@@ -18,7 +18,7 @@ export class ContinueStoryComponent implements OnInit {
     constructor(private appSVC: AppService, private router: Router) {}
 
     async ngOnInit() {
-        const testing = this.appSVC.loadGameList();
+        this.appSVC.loadGameList();
         await this.sleep(1500);
         this.loading = false;
         this.gameList = this.appSVC.getGameList();

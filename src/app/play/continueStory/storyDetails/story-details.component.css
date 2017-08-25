@@ -1,6 +1,32 @@
-.coming-soon {
-    font-size: 36px;
+.hero-list {
     font-weight: bold;
-    text-align: center;
-    margin-top: 20%;
+}
+
+.hero-item {
+    margin-left: 40%;
+}
+
+.hero-item:hover {
+    cursor: pointer;
+}
+
+.hero-title {
+    margin-top: 5%;
+    margin-left: 40%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.location {
+    margin-left: 41%;
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.spinner {
+    margin: auto;
+    display: block;
+    margin-top: 200px;
 }
