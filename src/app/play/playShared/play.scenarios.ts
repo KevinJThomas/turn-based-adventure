@@ -14,17 +14,17 @@ export class Scenarios {
         return {
             player: [ this.tutorialZed() ],
             enemy: [
-                this.createAI('Bruiser', 10, 10, 30, 30, 5, 4, true, [this.abilities.bash(), this.abilities.slice()]),
-                this.createAI('Crusher', 6, 6, 50, 50, 5, 4, true, [this.abilities.crush(), this.abilities.stomp()])
+                this.createAI(5, 'Bruiser', 10, 10, 30, 30, 5, 4, true, [this.abilities.bash(), this.abilities.slice()]),
+                this.createAI(5, 'Crusher', 6, 6, 50, 50, 5, 4, true, [this.abilities.crush(), this.abilities.stomp()])
             ]
         }
     }
 
     tutorialWitches() {
         return [
-            this.createAI('Agnes', 15, 15, 70, 70, 3, 4, true, [this.abilities.scream(), this.abilities.infect()]),
-            this.createAI('Matilda', 15, 15, 70, 70, 3, 5, true, [this.abilities.curse(), this.abilities.terrify()]),
-            this.createAI('Beatrice', 15, 15, 70, 70, 3, 6, true, [this.abilities.scratch(), this.abilities.bite()])
+            this.createAI(10, 'Agnes', 15, 15, 70, 70, 3, 4, true, [this.abilities.scream(), this.abilities.infect()]),
+            this.createAI(10, 'Matilda', 15, 15, 70, 70, 3, 5, true, [this.abilities.curse(), this.abilities.terrify()]),
+            this.createAI(10, 'Beatrice', 15, 15, 70, 70, 3, 6, true, [this.abilities.scratch(), this.abilities.bite()])
         ]
     }
 
@@ -34,13 +34,13 @@ export class Scenarios {
 
     tutorialEnemyArmy() {
         return [
-            this.createAI('God of Air', 200, 200, 200, 200, 20, 4, true, [this.abilities.windGust(), this.abilities.tornado()]),
-            this.createAI('God of Ice', 200, 200, 200, 200, 20, 4, true, [this.abilities.freeze(), this.abilities.iceShards()]),
-            this.createAI('God of Lightning', 200, 200, 200, 200, 20, 4, true, [this.abilities.lightningShock(), this.abilities.lightningStorm()]),
-            this.createAI('God of Fire', 200, 200, 200, 200, 20, 4, true, [this.abilities.sear(), this.abilities.fireStorm()]),
-            this.createAI('God of Earth', 200, 200, 200, 200, 20, 4, true, [this.abilities.callOfNature(), this.abilities.rejuvenation()]),
-            this.createAI('God of Shadows', 200, 200, 200, 200, 20, 4, true, [this.abilities.backstab(), this.abilities.ambush()]),
-            this.createAI('God of Water', 200, 200, 200, 200, 20, 4, true, [this.abilities.soak(), this.abilities.waterfall()])
+            this.createAI(20, 'God of Air', 200, 200, 200, 200, 20, 4, true, [this.abilities.windGust(), this.abilities.tornado()]),
+            this.createAI(20, 'God of Ice', 200, 200, 200, 200, 20, 4, true, [this.abilities.freeze(), this.abilities.iceShards()]),
+            this.createAI(20, 'God of Lightning', 200, 200, 200, 200, 20, 4, true, [this.abilities.lightningShock(), this.abilities.lightningStorm()]),
+            this.createAI(20, 'God of Fire', 200, 200, 200, 200, 20, 4, true, [this.abilities.sear(), this.abilities.fireStorm()]),
+            this.createAI(20, 'God of Earth', 200, 200, 200, 200, 20, 4, true, [this.abilities.callOfNature(), this.abilities.rejuvenation()]),
+            this.createAI(20, 'God of Shadows', 200, 200, 200, 200, 20, 4, true, [this.abilities.backstab(), this.abilities.ambush()]),
+            this.createAI(20, 'God of Water', 200, 200, 200, 200, 20, 4, true, [this.abilities.soak(), this.abilities.waterfall()])
         ]
     }
 
@@ -198,11 +198,12 @@ export class Scenarios {
         }
     }
 
-    createAI(name: string, currentHealth: number, maxHealth: number, currentEnergy: number, maxEnergy: number, strength: number,
+    createAI(level: number, name: string, currentHealth: number, maxHealth: number, currentEnergy: number, maxEnergy: number, strength: number,
         agility: number, alive: boolean, abilities: any[]) {
             this.aiId++;
             return {
                 id: this.aiId,
+                level: level,
                 name: name,
                 maxHealth: maxHealth,
                 currentHealth: currentHealth,
@@ -222,7 +223,7 @@ export class Scenarios {
     rats(count: number) {
         let ratArray = [];
         for (var i = 0; i < count; i++) {
-            ratArray.push(this.createAI('Rat', 4, 4, 15, 15, 2, 2, true, [this.abilities.ratScratch()]));
+            ratArray.push(this.createAI(1, 'Rat', 4, 4, 15, 15, 2, 2, true, [this.abilities.ratScratch()]));
         }
         return ratArray;
     }

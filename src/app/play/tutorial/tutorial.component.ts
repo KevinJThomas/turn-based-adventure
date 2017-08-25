@@ -51,13 +51,13 @@ export class TutorialComponent implements OnInit, OnDestroy {
         this.ready = false;
         this.disableButtons = true;
         await this.playSVC.battle();
-        this.isBattleFinished = this.playSVC.isBattleFinished();
+        this.isBattleFinished = this.playSVC.isBattleFinished('', true);
 
-        if (this.playSVC.isBattleFinished() === WinConditions.InProgress) {
+        if (this.playSVC.isBattleFinished('', true) === WinConditions.InProgress) {
             this.turnActive = false;
             await this.sleep(0);
             this.turnActive = true;
-        } else if (this.playSVC.isBattleFinished() === WinConditions.Win && this.stage === 2) {
+        } else if (this.playSVC.isBattleFinished('', true) === WinConditions.Win && this.stage === 2) {
             this.playSVC.openDialog(this.dialogs.tutorialFinish());
         }
 
