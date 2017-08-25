@@ -24,8 +24,20 @@ export class PlayService {
     enemyActions = [];
     stage: number;
     storyLine: number;
+    userId: string;
 
-    constructor(private scenarios: Scenarios, private dialog: MdDialog, private appSVC: AppService, private abilities: Abilities, private dialogs: Dialogs) {}
+    constructor(private scenarios: Scenarios, private dialog: MdDialog, private appSVC: AppService, private abilities: Abilities, private dialogs: Dialogs) {
+        this.getId();
+    }
+
+    getId() {
+        const dbRef = firebase.database().ref('users/');        
+        dbRef.once('value')
+        .then((snapshot) => {
+            const tmp: string[] = snapshot.val();
+            this.userId = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.appSVC.getUserId())[0].id;
+        });
+    }
 
     clearLog() {
         this.theGame.playByPlay = '';
@@ -34,6 +46,7 @@ export class PlayService {
     newTutorial(): Observable<any[]> {
         this.theGame = this.scenarios.tutorial();
         this.theGame.playByPlay = '';
+        this.theGame.xpGained = 0;
 
         return Observable.of(this.theGame);
     }
@@ -43,7 +56,8 @@ export class PlayService {
             player: playerHeroes,
             enemy: enemyHeroes,
             playerAlive: playerHeroes,
-            enemyAlive: enemyHeroes
+            enemyAlive: enemyHeroes,
+            xpGained: 0
         }
 
         return Observable.of(this.theGame);
@@ -56,6 +70,7 @@ export class PlayService {
         this.theGame.player.push(this.scenarios.tutorialMercy());
         this.theGame.enemy = this.scenarios.tutorialWitches();
         this.theGame.playByPlay = '';
+        this.theGame.xpGained = 0;
     }
 
     tutorialStageThree() {
@@ -64,13 +79,15 @@ export class PlayService {
         this.theGame.player = this.scenarios.tutorialPlayerArmy();
         this.theGame.enemy = this.scenarios.tutorialEnemyArmy();
         this.theGame.playByPlay = '';
+        this.theGame.xpGained = 0;
     }
 
     setupGame(gameId: string) {
         this.theGame = {
             player: [],
             enemy: [],
-            playByPlay: ''
+            playByPlay: '',
+            xpGained: 0
         };
         let theUser: any;
         
@@ -523,7 +540,7 @@ export class PlayService {
         }
     }
 
-    isBattleFinished(): number {
+    isBattleFinished(gameId: string, isTutorial = false): number {
         let playerAlive = false;
 
         for (const hero of this.theGame.player) {
@@ -545,6 +562,22 @@ export class PlayService {
         } else if (!playerAlive && enemyAlive) {
             return WinConditions.Lose
         } else if (playerAlive && !enemyAlive) {
+            if (!isTutorial) {
+                for (const enemy of this.theGame.enemy) {
+                    this.theGame.xpGained += (enemy.level * 3);
+                }
+                for (let hero of this.theGame.player) {
+                    hero.xp += this.theGame.xpGained / this.theGame.player.length;
+                    firebase.database().ref('users/').child(this.userId).child('games/').child(gameId)
+                        .update({                            
+                            stage: this.stage + 1
+                        });
+                    firebase.database().ref('users/').child(this.userId).child('games/').child(gameId).child('team/').child(hero.id)
+                        .update({
+                            xp: this.theGame.xpGained
+                        });
+                }
+            }
             return WinConditions.Win
         } else {
             return WinConditions.Tie

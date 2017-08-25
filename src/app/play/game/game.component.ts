@@ -34,7 +34,8 @@ export class GameComponent implements OnInit, OnDestroy {
         private appSVC: AppService,
         private playSVC: PlayService,
         private dialog: MdDialog,
-        private dialogs: Dialogs) {}
+        private dialogs: Dialogs
+    ) {}
 
     async ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
@@ -47,7 +48,7 @@ export class GameComponent implements OnInit, OnDestroy {
         await this.sleep(1500);
         this.loading = false;
         this.playSVC.openStoryDialog();
-        this.burmiStoryLine = this.theGame.player[0].name === 'Burmi';
+        this.burmiStoryLine = this.theGame.player[0].name === 'Burmi'; // Disabling story lines that aren't implemented yet
     }
 
     ngOnDestroy() {
@@ -68,9 +69,9 @@ export class GameComponent implements OnInit, OnDestroy {
         this.ready = false;
         this.disableButtons = true;
         await this.playSVC.battle();
-        this.isBattleFinished = this.playSVC.isBattleFinished();
+        this.isBattleFinished = this.playSVC.isBattleFinished(this.gameId);
 
-        if (this.playSVC.isBattleFinished() === WinConditions.InProgress) {
+        if (this.isBattleFinished === WinConditions.InProgress) {
             this.turnActive = false;
             await this.sleep(0);
             this.turnActive = true;
