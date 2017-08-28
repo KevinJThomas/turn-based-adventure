@@ -309,4 +309,28 @@ export class AppService implements CanActivate {
                 return 'https://firebasestorage.googleapis.com/v0/b/turn-based-game-438f3.appspot.com/o/Hero%20Images%2Fdefault.jpg?alt=media&token=a05dc774-e053-4f72-966a-fe1ebbef2785';
         }
     }
+
+    getNextLevel(xp: number) {
+        if (xp < 10) {
+            return 10;
+        } else if (xp < 50) {
+            return 200;
+        } else if (xp < 200) {
+            return 1000;
+        } else if (xp < 1000) {
+            return 3000;
+        } else if (xp < 3000) {
+            return 8000;
+        } else if (xp < 8000) {
+            return 20000;
+        } else if (xp < 20000) {
+            return 50000;
+        } else if (xp < 50000) {
+            return 100000;
+        } else if (xp < 100000) {
+            return 100000;
+        } else {
+            return 200000;
+        }
+    }
 }

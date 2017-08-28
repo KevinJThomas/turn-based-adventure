@@ -147,6 +147,9 @@ export class PlayService {
 
     playGame(): Observable<any[]> {
         this.theGame.enemy = this.findScenario();
+        if (!this.theGame.enemy) {
+            this.theGame.player[0].name += '!';
+        }
         return Observable.of(this.theGame);
     }
 
@@ -576,12 +579,88 @@ export class PlayService {
                         .update({
                             xp: this.theGame.xpGained
                         });
+                    if (this.didLevelUp(hero)) {
+                        console.log('leveled up');
+                        firebase.database().ref('users/').child(this.userId).child('games/').child(gameId).child('team/').child(hero.id)
+                            .update({
+                                level: hero.level + 1
+                            });
+                    }
                 }
             }
             return WinConditions.Win
         } else {
             return WinConditions.Tie
         }
+    }
+    
+    didLevelUp(hero: any) {
+        switch (hero.level) {
+            case 1: {
+                if (hero.xp >= 10) {
+                    return true;                    
+                }
+                break;
+            }
+            case 2: {
+                if (hero.xp >= 50) {
+                    return true;                    
+                }
+                break;
+            }
+            case 3: {
+                if (hero.xp >= 200) {
+                    return true;                    
+                }
+                break;
+            }
+            case 4: {
+                if (hero.xp >= 1000) {
+                    return true;                    
+                }
+                break;
+            }
+            case 5: {
+                if (hero.xp >= 3000) {
+                    return true;                    
+                }
+                break;
+            }
+            case 6: {
+                if (hero.xp >= 8000) {
+                    return true;                    
+                }
+                break;
+            }
+            case 7: {
+                if (hero.xp >= 20000) {
+                    return true;                    
+                }
+                break;
+            }
+            case 8: {
+                if (hero.xp >= 50000) {
+                    return true;                    
+                }
+                break;
+            }
+            case 9: {
+                if (hero.xp >= 100000) {
+                    return true;                    
+                }
+                break;
+            }
+            case 10: {
+                if (hero.xp >= 200000) {
+                    return true;                    
+                }
+                break;
+            }
+            default: {
+                return false;
+            }
+        }
+        return false;
     }
 
     damageAbility(action: any) {
