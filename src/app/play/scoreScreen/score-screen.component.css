@@ -1,0 +1,43 @@
+.hero-list {
+    font-weight: bold;
+}
+
+.hero-item {
+    margin-left: 40%;
+}
+
+.hero-item:hover {
+    cursor: pointer;
+}
+
+.hero-title {
+    margin-top: 5%;
+    margin-left: 40%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.spinner {
+    margin: auto;
+    display: block;
+    margin-top: 200px;
+}
+
+.xp-bar {
+    margin-left: 25px;
+    width: 125px;
+}
+
+.xp-text {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.continue-button {
+    margin: auto;
+    display: block;
+    width: 10%;
+    margin-top: 75px;
+    border-radius: 10px;
+}

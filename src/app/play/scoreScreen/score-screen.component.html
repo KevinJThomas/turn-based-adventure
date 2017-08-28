@@ -1,3 +1,14 @@
 <app-nav-bar></app-nav-bar>
 
-score screen
+<div *ngIf="!loading">
+    <div class="hero-title">Team</div>
+    <md-list class="hero-list">
+        <md-list-item *ngFor="let hero of heroes" class="hero-item" (click)="openHeroDialog(hero)">
+            Lvl {{hero.level}} {{hero.name}} <md-progress-bar class="xp-bar" [value]=35></md-progress-bar> <span class="xp-text">({{hero.xp}}/{{hero.nextLevel}})</span>
+        </md-list-item>
+    </md-list>
+</div>
+
+<button md-raised-button class="continue-button" (click)="continue()">Continue</button>
+
+<md-progress-spinner *ngIf="loading" class="spinner" mode=indeterminate></md-progress-spinner>

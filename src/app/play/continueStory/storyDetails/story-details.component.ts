@@ -33,7 +33,7 @@ export class StoryDetailsComponent implements OnInit, OnDestroy {
     }
 
     openHeroDialog(hero: any) {
-        this.playSVC.openHeroDialog(hero); // displaying empty list of abilities
+        this.playSVC.openHeroDialog(hero);
     }
 
     sleep(ms: number) {
