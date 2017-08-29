@@ -46,4 +46,8 @@ export class ScoreScreenComponent implements OnInit, OnDestroy {
     continue() {
         this.router.navigate(['/play/game', this.gameId]);
     }
+
+    editHero(hero: any) {
+        this.playSVC.openLevelUpDialog(hero, this.gameId, false);
+    }
 }

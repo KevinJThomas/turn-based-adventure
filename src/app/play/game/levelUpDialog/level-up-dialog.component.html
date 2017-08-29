@@ -1,0 +1,25 @@
+<h2 *ngIf="leveledUp" class="hero-name">{{hero.name}} leveled up to level {{hero.level}}!</h2>
+
+<div class="stat-block">
+    <div class="stat-label">Stamina: {{hero.stamina}}</div>
+    <a md-mini-fab class="stat-button" (click)="decreaseStamina()"><i class="material-icons">remove</i></a>
+    <a md-mini-fab class="stat-button" (click)="increaseStamina()"><i class="material-icons">add</i></a>
+    <div class="stat-label">Strength: {{hero.strength}}</div>
+    <a md-mini-fab class="stat-button" (click)="decreaseStrength()"><i class="material-icons">remove</i></a>
+    <a md-mini-fab class="stat-button" (click)="increaseStrength()"><i class="material-icons">add</i></a>
+    <div class="stat-label">Agility: {{hero.agility}}</div>
+    <a md-mini-fab class="stat-button" (click)="decreaseAgility()"><i class="material-icons">remove</i></a>
+    <a md-mini-fab class="stat-button" (click)="increaseAgility()"><i class="material-icons">add</i></a>
+    <div class="stat-label">Magic: {{hero.magic}}</div>
+    <a md-mini-fab class="stat-button" (click)="decreaseMagic()"><i class="material-icons">remove</i></a>
+    <a md-mini-fab class="stat-button" (click)="increaseMagic()"><i class="material-icons">add</i></a>
+    <div class="stat-label">Energy: {{hero.energy}}</div>
+    <a md-mini-fab class="stat-button" (click)="decreaseEnergy()"><i class="material-icons">remove</i></a>
+    <a md-mini-fab class="stat-button" (click)="increaseEnergy()"><i class="material-icons">add</i></a> 
+    <div class="available-points">Remaining points: {{hero.statPoints}}</div>
+</div>
+
+<div class="button-row">                
+    <button md-raised-button md-dialog-close class="apply-button" (click)="apply()">Apply</button>
+    <button md-raised-button md-dialog-close class="apply-button">Cancel</button>            
+</div>

@@ -1,0 +1,29 @@
+.hero-name {
+    text-align: center;
+}
+
+.stat-button {
+    background-color: #DAD5D5;
+    margin-bottom: 20px;
+}
+
+.stat-label {
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.apply-button {
+    border-radius: 10px;
+    width: 50%
+}
+
+.stat-block {
+    padding: 40px;
+}

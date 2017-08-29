@@ -188,6 +188,7 @@ export class AppService implements CanActivate {
                 name: heroName,
                 level: 1,
                 xp: 0,
+                statPoints: 0,
                 stamina: stamina,
                 strength: strength,
                 agility: agility,
@@ -271,6 +272,29 @@ export class AppService implements CanActivate {
         });
     }
 
+    updateHero(hero: any, gameId: string) {
+        let theUser: any;
+
+        const dbRef = firebase.database().ref('users/');        
+        dbRef.once('value')
+        .then((snapshot) => {
+            const tmp: string[] = snapshot.val();
+            theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.getUserId())[0];
+        }).then(() => {
+            if (theUser) {
+                const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(gameId).child('team/').child(hero.id)
+                    .update ({
+                        stamina: hero.stamina,
+                        strength: hero.strength,
+                        agility: hero.agility,
+                        magic: hero.magic,
+                        energy: hero.energy,
+                        statPoints: hero.statPoints
+                    });
+            }
+        });
+    }
+
     getGameInfo() {
         return this.theGame;
     }
@@ -314,19 +338,19 @@ export class AppService implements CanActivate {
         if (xp < 10) {
             return 10;
         } else if (xp < 50) {
-            return 200;
+            return 50;
         } else if (xp < 200) {
-            return 1000;
+            return 200;
         } else if (xp < 1000) {
-            return 3000;
+            return 1000;
         } else if (xp < 3000) {
-            return 8000;
+            return 3000;
         } else if (xp < 8000) {
-            return 20000;
+            return 8000;
         } else if (xp < 20000) {
-            return 50000;
+            return 20000;
         } else if (xp < 50000) {
-            return 100000;
+            return 50000;
         } else if (xp < 100000) {
             return 100000;
         } else {

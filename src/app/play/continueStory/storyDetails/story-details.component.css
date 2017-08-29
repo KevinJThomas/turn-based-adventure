@@ -6,7 +6,7 @@
     margin-left: 40%;
 }
 
-.hero-item:hover {
+.hero-name:hover {
     cursor: pointer;
 }
 
@@ -29,4 +29,24 @@
     margin: auto;
     display: block;
     margin-top: 200px;
+}
+
+.stat-points {
+    margin-left: 20px;
+    color: #69D769;
+}
+
+.stat-points:hover {
+    cursor: pointer;
+}
+
+.xp-bar {
+    margin-left: 25px;
+    width: 125px;
+}
+
+.xp-text {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: normal;
 }
