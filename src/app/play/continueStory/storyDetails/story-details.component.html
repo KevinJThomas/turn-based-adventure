@@ -3,8 +3,13 @@
 <div *ngIf="!loading">
     <div class="hero-title">Team</div>
     <md-list class="hero-list">
-        <md-list-item *ngFor="let hero of heroes" class="hero-item" (click)="openHeroDialog(hero)">
-            Lvl {{hero.level}} {{hero.name}}
+        <md-list-item *ngFor="let hero of heroes" class="hero-item">
+            <span class="hero-name" (click)="openHeroDialog(hero)">Lvl {{hero.level}} {{hero.name}}</span>
+            <md-progress-bar class="xp-bar" [value]=35></md-progress-bar>
+            <span class="xp-text">({{hero.xp}}/{{hero.nextLevel}})</span>
+            <i class="material-icons stat-points" *ngIf="hero.statPoints > 0" mdTooltip="Stat points available!" mdTooltipPosition="right" (click)="editHero(hero)">
+                whatshot
+            </i>
         </md-list-item>
     </md-list>
 

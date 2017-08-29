@@ -26,6 +26,9 @@ export class StoryDetailsComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.theGame = this.appSVC.getGameInfo();
         this.heroes = this.appSVC.getTeamInfo();
+        for (let hero of this.heroes) {
+            hero.nextLevel = this.appSVC.getNextLevel(hero.xp);
+        }
     }
 
     ngOnDestroy() {
@@ -38,5 +41,9 @@ export class StoryDetailsComponent implements OnInit, OnDestroy {
 
     sleep(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    editHero(hero: any) {
+        this.playSVC.openLevelUpDialog(hero, this.gameId, false);
     }
 }

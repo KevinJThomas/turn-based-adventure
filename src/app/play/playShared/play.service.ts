@@ -7,8 +7,9 @@ import { Abilities } from './play.abilities';
 import { AbilityTypes } from './play.ability-types';
 import { WinConditions } from './play.win-conditions';
 import { Scenarios } from './play.scenarios';
-import { PlayDialogComponent } from '../playShared/playDialog/play-dialog.component';
-import { HeroDialogComponent } from '../playShared/heroDialog/hero-dialog.component';
+import { PlayDialogComponent } from './playDialog/play-dialog.component';
+import { HeroDialogComponent } from './heroDialog/hero-dialog.component';
+import { LevelUpDialogComponent } from '../game/levelUpDialog/level-up-dialog.component';
 import { AppService } from '../../shared/app.service';
 
 import * as firebase from 'firebase';
@@ -580,11 +581,18 @@ export class PlayService {
                             xp: this.theGame.xpGained
                         });
                     if (this.didLevelUp(hero)) {
-                        console.log('leveled up');
+                        hero.level++;
+                        if (hero.statPoints) {
+                            hero.statPoints += 4;
+                        } else {
+                            hero.statPoints = 4;
+                        }                        
                         firebase.database().ref('users/').child(this.userId).child('games/').child(gameId).child('team/').child(hero.id)
                             .update({
-                                level: hero.level + 1
+                                level: hero.level,
+                                statPoints: hero.statPoints
                             });
+                        this.openLevelUpDialog(hero, gameId);
                     }
                 }
             }
@@ -946,6 +954,19 @@ export class PlayService {
         dialogRef = this.dialog.open(HeroDialogComponent);
         dialogRef.updateSize('500px', '300px');
         dialogRef.componentInstance.hero = hero;
+
+        return dialogRef.afterClosed();
+    }
+
+    openLevelUpDialog(hero: any, gameId: string, leveledUp = true): Observable<boolean> {
+        let dialogRef: MdDialogRef<LevelUpDialogComponent>;
+
+        dialogRef = this.dialog.open(LevelUpDialogComponent);
+        dialogRef.disableClose = true;
+        dialogRef.updateSize('500px', '650px');
+        dialogRef.componentInstance.hero = hero;
+        dialogRef.componentInstance.gameId = gameId;
+        dialogRef.componentInstance.leveledUp = leveledUp;
 
         return dialogRef.afterClosed();
     }
