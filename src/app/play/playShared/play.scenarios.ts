@@ -221,8 +221,8 @@ export class Scenarios {
 
     // Basic
     rats(count: number) {
-        let ratArray = [];
-        for (var i = 0; i < count; i++) {
+        const ratArray = [];
+        for (let i = 0; i < count; i++) {
             ratArray.push(this.createAI(1, 'Rat', 4, 4, 15, 15, 2, 2, true, [this.abilities.ratScratch()]));
         }
         return ratArray;
