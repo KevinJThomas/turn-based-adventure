@@ -23,7 +23,7 @@ export class ContinueStoryComponent implements OnInit {
         this.loading = false;
         this.gameList = this.appSVC.getGameList();
     }
-    
+
     sleep(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }

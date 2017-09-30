@@ -32,7 +32,7 @@ export class PlayService {
     }
 
     getId() {
-        const dbRef = firebase.database().ref('users/');        
+        const dbRef = firebase.database().ref('users/');
         dbRef.once('value')
         .then((snapshot) => {
             const tmp: string[] = snapshot.val();
@@ -91,13 +91,12 @@ export class PlayService {
             xpGained: 0
         };
         let theUser: any;
-        
-        const dbRef = firebase.database().ref('users/');        
+        const dbRef = firebase.database().ref('users/');
         dbRef.once('value')
         .then((snapshot) => {
             const tmp: string[] = snapshot.val();
             theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.appSVC.getUserId())[0];
-        }).then((snapshot) => {            
+        }).then((snapshot) => {
             if (theUser) {
                 const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/');
                 gameDbRef.once('value')
@@ -169,9 +168,11 @@ export class PlayService {
             }
             case Heroes.Elvashj: {
                 // Coming soon
+                break;
             }
             case Heroes.Ushuna: {
                 // Coming soon
+                break;
             }
             default: {
                 console.log('ERROR: Default in play.service.ts.findScenario() (storyLine) hit');
@@ -195,9 +196,11 @@ export class PlayService {
             }
             case Heroes.Elvashj: {
                 // Coming soon
+                break;
             }
             case Heroes.Ushuna: {
                 // Coming soon
+                break;
             }
             default: {
                 console.log('ERROR: Default in play.service.ts.openStoryDialog() (storyLine) hit');
@@ -570,10 +573,10 @@ export class PlayService {
                 for (const enemy of this.theGame.enemy) {
                     this.theGame.xpGained += (enemy.level * 3);
                 }
-                for (let hero of this.theGame.player) {
+                for (const hero of this.theGame.player) {
                     hero.xp += this.theGame.xpGained / this.theGame.player.length;
                     firebase.database().ref('users/').child(this.userId).child('games/').child(gameId)
-                        .update({                            
+                        .update({
                             stage: this.stage + 1
                         });
                     firebase.database().ref('users/').child(this.userId).child('games/').child(gameId).child('team/').child(hero.id)
@@ -586,7 +589,7 @@ export class PlayService {
                             hero.statPoints += 4;
                         } else {
                             hero.statPoints = 4;
-                        }                        
+                        }
                         firebase.database().ref('users/').child(this.userId).child('games/').child(gameId).child('team/').child(hero.id)
                             .update({
                                 level: hero.level,
@@ -601,66 +604,66 @@ export class PlayService {
             return WinConditions.Tie
         }
     }
-    
+
     didLevelUp(hero: any) {
         switch (hero.level) {
             case 1: {
                 if (hero.xp >= 10) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 2: {
                 if (hero.xp >= 50) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 3: {
                 if (hero.xp >= 200) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 4: {
                 if (hero.xp >= 1000) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 5: {
                 if (hero.xp >= 3000) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 6: {
                 if (hero.xp >= 8000) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 7: {
                 if (hero.xp >= 20000) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 8: {
                 if (hero.xp >= 50000) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 9: {
                 if (hero.xp >= 100000) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }
             case 10: {
                 if (hero.xp >= 200000) {
-                    return true;                    
+                    return true;
                 }
                 break;
             }

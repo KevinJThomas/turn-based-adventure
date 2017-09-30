@@ -18,7 +18,7 @@ import 'rxjs/add/operator/map';
 export class AppService implements CanActivate {
     userLoggedIn = false;
     authUser: any;
-    currentGame: string;    
+    currentGame: string;
     gameList: any[];
     theGame: any;
     team: any[];
@@ -115,19 +115,19 @@ export class AppService implements CanActivate {
     loadGameList() {
         let theUser: any;
 
-        const dbRef = firebase.database().ref('users/');        
+        const dbRef = firebase.database().ref('users/');
         dbRef.once('value')
         .then((snapshot) => {
             const tmp: string[] = snapshot.val();
             theUser = Object.keys(tmp).map(key => tmp[key]).filter(item => item.uid === this.getUserId())[0];
-        }).then((snapshot) => {            
+        }).then((snapshot) => {
             if (theUser) {
                 const gameDbRef = firebase.database().ref('users/').child(theUser.id).child('games/');
                 gameDbRef.once('value')
                 .then((snapshot) => {
                     const tmp: string[] = snapshot.val();
                     this.gameList = Object.keys(tmp).map(key => tmp[key]);
-                });                
+                });
             }
         });
     }
@@ -136,7 +136,7 @@ export class AppService implements CanActivate {
         let theUser: any;
         const heroType = this.findHeroType(heroName);
 
-        const dbRef = firebase.database().ref('users/');        
+        const dbRef = firebase.database().ref('users/');
         dbRef.once('value')
         .then((snapshot) => {
             const tmp: string[] = snapshot.val();
@@ -154,6 +154,7 @@ export class AppService implements CanActivate {
                             stage: 0,
                             location: 'Ironforge Forest'
                         });
+                        break;
                     }
                     case (Heroes.Elvashj): {
                         newGame.set ({
@@ -163,6 +164,7 @@ export class AppService implements CanActivate {
                             stage: 0,
                             location: 'Elemental Cave'
                         });
+                        break;
                     }
                     case (Heroes.Ushuna): {
                         newGame.set ({
@@ -172,12 +174,13 @@ export class AppService implements CanActivate {
                             stage: 0,
                             location: 'Dread Swamp'
                         });
+                        break;
                     }
                     default: {
                         console.log('ERROR: Default in app.service.ts.newStory() hit');
                     }
                 }
-                
+
                 this.currentGame = newGame.key;
             }
         }).then(() => {
@@ -208,6 +211,7 @@ export class AppService implements CanActivate {
                         cost: 5,
                         description: 'Slice an enemy'
                     });
+                    break;
                 }
                 case (Heroes.Elvashj): {
                     // TODO: Add starting ability
@@ -218,6 +222,7 @@ export class AppService implements CanActivate {
                         cost: 5,
                         description: 'Slice an enemy'
                     });
+                    break;
                 }
                 case (Heroes.Ushuna): {
                     // TODO: Add starting ability
@@ -228,6 +233,7 @@ export class AppService implements CanActivate {
                         cost: 5,
                         description: 'Slice an enemy'
                     });
+                    break;
                 }
                 default: {
                     console.log('ERROR: Default in app.service.ts.newStory() hit');
@@ -239,7 +245,7 @@ export class AppService implements CanActivate {
     setGameInfo(gameId: string) {
         let theUser: any;
 
-        const dbRef = firebase.database().ref('users/');        
+        const dbRef = firebase.database().ref('users/');
         dbRef.once('value')
         .then((snapshot) => {
             const tmp: string[] = snapshot.val();
@@ -257,7 +263,7 @@ export class AppService implements CanActivate {
                     .then((snapshot) => {
                         const tmp: string[] = snapshot.val();
                         this.team = Object.keys(tmp).map(key => tmp[key]);
-                        for (let hero of this.team) {
+                        for (const hero of this.team) {
                             const abilitiesDbRef = firebase.database().ref('users/').child(theUser.id).child('games/').child(gameId).child('team/')
                                 .child(hero.id).child('abilities/');
                             abilitiesDbRef.once('value')
@@ -275,7 +281,7 @@ export class AppService implements CanActivate {
     updateHero(hero: any, gameId: string) {
         let theUser: any;
 
-        const dbRef = firebase.database().ref('users/');        
+        const dbRef = firebase.database().ref('users/');
         dbRef.once('value')
         .then((snapshot) => {
             const tmp: string[] = snapshot.val();
@@ -308,7 +314,7 @@ export class AppService implements CanActivate {
     }
 
     findHeroType(heroName: string) {
-        switch(heroName) {
+        switch (heroName) {
             case 'Burmi': {
                 return Heroes.Burmi;
             }
