@@ -80,4 +80,22 @@ export class Dialogs {
             `You look around to see cat-sized rats coming out of the shadows. You're surrounded!`
         ];
     }
+
+    burmiOne(): string[] {
+        return [
+            `Phew, that was a close one! That'll teach anymore rodents to try to mess with you.`,
+            `Well, it's probably best to get some rest after that intense battle.
+            You head over the bed against the back wall and go to sleep.`,
+            `. . .`,
+            `WAAAAHH, you wake up to a splash of cold water on your face. You can hear snickering at you wipe it out of your eyes.`,
+            `Rival: "Oh heeeeeeey Burmi, I didn't see ya thar!"`, //TODO: name the rival
+            `Oh no.. it's Rival. You two have been mortal enemies since you were little baby dwarves trying to rip eachother's beards out.`,
+            `Rival: "I heard yar tryin to take a little trip, Burmi!" I hope ya can fight better than when we were kids or you'll
+            eaten alive out here!`,
+            `Rival: "As a matter a fact, I  think we should go outside, so I can see what ya got! C'mon Burmi, don'tcha wanna have a nice duel
+            with your friend?" Rival snickers to himself as he turns and walks outside.`,
+            `It's time to show Rival who's the tougher dwarf now! Then he'll never mess with you again!`,
+            `You run outside and take out your axe. Let's Duel!`
+        ];
+    }
 }
