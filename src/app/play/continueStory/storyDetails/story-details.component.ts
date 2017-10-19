@@ -28,6 +28,7 @@ export class StoryDetailsComponent implements OnInit, OnDestroy {
         this.heroes = this.appSVC.getTeamInfo();
         for (const hero of this.heroes) {
             hero.nextLevel = this.appSVC.getNextLevel(hero.xp);
+            hero.xpBarPercent = hero.xp / hero.nextLevel * 100;
         }
     }
 
