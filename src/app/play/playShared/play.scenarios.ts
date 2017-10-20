@@ -9,6 +9,19 @@ export class Scenarios {
 
     constructor(private abilities: Abilities) {}
 
+    // Arrays of storylines for each hero
+    burmi(): Array<any[]> {
+        return [this.rats(4), this.rival()];
+    }
+
+    elvashj(): Array<any[]> {
+        return [];
+    }
+
+    ushuna(): Array<any[]> {
+        return [];
+    }
+
     // Tutorial
     tutorial() {
         return {
@@ -226,5 +239,9 @@ export class Scenarios {
             ratArray.push(this.createAI(1, 'Rat', 4, 4, 15, 15, 2, 2, true, [this.abilities.ratScratch()]));
         }
         return ratArray;
+    }
+
+    rival() {
+        return [this.createAI(1, 'Rat', 4, 4, 15, 15, 2, 2, true, [this.abilities.ratScratch()])]; // TODO: make this the rival with dynamic sats from parameters
     }
 }

@@ -156,22 +156,29 @@ export class PlayService {
     findScenario() {
         switch (this.storyLine) {
             case Heroes.Burmi: {
-                switch (this.stage) {
-                    case 0: {
-                        return this.scenarios.rats(4);
-                    }
-                    default: {
-                        console.log('ERROR: Default in play.service.ts.findScenario() (Burmi.stage) hit');
-                    }
+                if (this.scenarios.burmi()[this.stage]) {
+                    return this.scenarios.burmi()[this.stage];
+                } else {
+                    console.log('ERROR: Default in play.service.ts.findScenario() (Burmi.stage) hit');
                 }
                 break;
             }
             case Heroes.Elvashj: {
                 // Coming soon
+                if (this.scenarios.elvashj()[this.stage]) {
+                    return this.scenarios.elvashj()[this.stage];
+                } else {
+                    console.log('ERROR: Default in play.service.ts.findScenario() (Elvashj.stage) hit');
+                }
                 break;
             }
             case Heroes.Ushuna: {
                 // Coming soon
+                if (this.scenarios.ushuna()[this.stage]) {
+                    return this.scenarios.ushuna()[this.stage];
+                } else {
+                    console.log('ERROR: Default in play.service.ts.findScenario() (Ushuna.stage) hit');
+                }
                 break;
             }
             default: {
@@ -183,23 +190,29 @@ export class PlayService {
     openStoryDialog() {
         switch (this.storyLine) {
             case Heroes.Burmi: {
-                switch (this.stage) {
-                    case 0: {
-                        this.openDialog(this.dialogs.burmiIntro());
-                        break;
-                    }
-                    default: {
-                        console.log('ERROR: Default in play.service.ts.openStoryDialog() (Burmi.stage) hit');
-                    }
+                if (this.dialogs.burmi()[this.stage]) {
+                    this.openDialog(this.dialogs.burmi()[this.stage])
+                } else {
+                    console.log('ERROR: Default in play.service.ts.openStoryDialog() (Burmi.stage) hit');
                 }
                 break;
             }
             case Heroes.Elvashj: {
                 // Coming soon
+                if (this.dialogs.elvashj()[this.stage]) {
+                    this.openDialog(this.dialogs.elvashj()[this.stage])
+                } else {
+                    console.log('ERROR: Default in play.service.ts.openStoryDialog() (Elvashj.stage) hit');
+                }
                 break;
             }
             case Heroes.Ushuna: {
                 // Coming soon
+                if (this.dialogs.ushuna()[this.stage]) {
+                    this.openDialog(this.dialogs.ushuna()[this.stage])
+                } else {
+                    console.log('ERROR: Default in play.service.ts.openStoryDialog() (Ushuna.stage) hit');
+                }
                 break;
             }
             default: {
