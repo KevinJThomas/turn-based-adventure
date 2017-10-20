@@ -2,6 +2,19 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Dialogs {
+    // Arrays of story dialogs for each hero
+    burmi(): Array<string[]> {
+        return [this.burmiIntro(), this.burmiOne()];
+    }
+
+    elvashj(): Array<string[]> {
+        return [];
+    }
+
+    ushuna(): Array<string[]> {
+        return [];
+    }
+
     // Tutorial
     tutorialIntro(): string[] {
         return [
