@@ -11,7 +11,7 @@ export class Scenarios {
 
     // Arrays of storylines for each hero
     burmi(): Array<any[]> {
-        return [this.rats(4), this.rival()];
+        return [this.rats(4), this.rival(2, 14, 14, 30, 30, 4, 4, [this.abilities.slam(), this.abilities.intimidate()])];
     }
 
     elvashj(): Array<any[]> {
@@ -241,7 +241,7 @@ export class Scenarios {
         return ratArray;
     }
 
-    rival() {
-        return [this.createAI(1, 'Rat', 4, 4, 15, 15, 2, 2, true, [this.abilities.ratScratch()])]; // TODO: make this the rival with dynamic sats from parameters
+    rival(level: number, currentHealth: number, maxHealth: number, currentEnergy: number, maxEnergy: number, strength: number, agility: number, abilities: any[]) {
+        return [this.createAI(level, 'Rival', currentHealth, maxHealth, currentEnergy, maxEnergy, strength, agility, true, abilities)]; // TODO: name rival
     }
 }
