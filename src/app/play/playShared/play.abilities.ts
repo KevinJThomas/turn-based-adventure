@@ -603,4 +603,34 @@ export class Abilities {
             description: 'Scratch an enemy'
         }
     }
+    
+    slam() {
+        return {
+            name: 'Slam',
+            typeIndex: AbilityTypes.SingleTargetDamage,
+            power: 3,
+            cost: 6,
+            description: 'Slam an enemy'
+        }
+    }
+
+    intimidate() {
+        return {
+            name: 'Intimidate',
+            typeIndex: AbilityTypes.Curse,
+            triggerOnCleanse: true,
+            power: 0,
+            cost: 4,
+            turns: 2,
+            effect: (target) => {
+                target.agility -= 2;
+                return target.name + ' is intimidated';
+            },
+            endEffect: (target) => {
+                target.agility += 2;
+                return target.name + ' is no longer intimidated';
+            },
+            description: 'Intimidate an enemy, reducing their agility for 2 turns'
+        }
+    }
 }
