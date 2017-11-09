@@ -987,6 +987,16 @@ export class PlayService {
         return dialogRef.afterClosed();
     }
 
+    openMapDialog(gameId: string) {
+        let dialogRef: MdDialogRef<LevelUpDialogComponent>;
+        
+        dialogRef = this.dialog.open(LevelUpDialogComponent);
+        dialogRef.updateSize('1000px', '1300px');
+        dialogRef.componentInstance.gameId = gameId;
+
+        return dialogRef.afterClosed();
+    }
+
     sleep(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }

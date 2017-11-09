@@ -30,6 +30,7 @@ import { GameComponent } from './game/game.component';
 import { StoryDetailsComponent } from './continueStory/storyDetails/story-details.component';
 import { ScoreScreenComponent } from './scoreScreen/score-screen.component';
 import { LevelUpDialogComponent } from './game/levelUpDialog/level-up-dialog.component';
+import { MapDialogComponent } from './game/mapDialog/map-dialog.component';
 
 import { AppService } from '../shared/app.service';
 import { PlayService } from './playShared/play.service';
@@ -94,6 +95,7 @@ const PlayRoutes: Routes = [
         StoryDetailsComponent,
         ScoreScreenComponent,
         LevelUpDialogComponent,
+        MapDialogComponent,
         TwoDigitPipe
     ],
     providers: [
@@ -105,7 +107,8 @@ const PlayRoutes: Routes = [
     entryComponents: [
         PlayDialogComponent,
         HeroDialogComponent,
-        LevelUpDialogComponent
+        LevelUpDialogComponent,
+        MapDialogComponent
     ]
 })
 
