@@ -4,12 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
-  MdButtonModule,
-  MdInputModule,
-  MdCardModule,
-  MdToolbarModule,
-  MdCheckboxModule,
-  MdListModule
+  MatButtonModule,
+  MatInputModule,
+  MatCardModule,
+  MatToolbarModule,
+  MatCheckboxModule,
+  MatListModule
 } from '@angular/material';
 
 import { AppComponent } from './start/app.component';
@@ -49,12 +49,12 @@ import 'hammerjs';
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MdButtonModule,
-    MdInputModule,
-    MdCardModule,
-    MdToolbarModule,
-    MdCheckboxModule,
-    MdListModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatCheckboxModule,
+    MatListModule,
     PlayModule,
     AppRoutingModule
   ],

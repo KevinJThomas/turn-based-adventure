@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 import { AppService } from '../../../shared/app.service';
 
@@ -17,7 +17,7 @@ export class LevelUpDialogComponent implements OnInit {
     gameId: string;
     leveledUp: boolean;
 
-    constructor(private dialogRef: MdDialogRef<LevelUpDialogComponent>, private appSVC: AppService) {}
+    constructor(private dialogRef: MatDialogRef<LevelUpDialogComponent>, private appSVC: AppService) {}
 
     ngOnInit() {
         this.baseStamina = this.hero.stamina;

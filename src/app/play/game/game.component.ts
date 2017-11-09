@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { AppService } from '../../shared/app.service';
 import { PlayService } from '../playShared/play.service';
@@ -33,7 +33,7 @@ export class GameComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private appSVC: AppService,
         private playSVC: PlayService,
-        private dialog: MdDialog,
+        private dialog: MatDialog,
         private dialogs: Dialogs
     ) {}
 

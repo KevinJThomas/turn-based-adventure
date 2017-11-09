@@ -2,19 +2,19 @@
 
 <div class="game-list" *ngFor="let game of gameList">
     <div class="spacer">
-        <md-grid-list cols="6" rowHeight="50px">            
-            <md-grid-tile [colspan]="6" [rowspan]="1">
+        <mat-grid-list cols="6" rowHeight="50px">            
+            <mat-grid-tile [colspan]="6" [rowspan]="1">
                 <p class="game-name">{{game.name}}</p>
-            </md-grid-tile>
-            <md-grid-tile [colspan]="6" [rowspan]="3">
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="6" [rowspan]="3">
                 <img class="mini-img" [src]="getHeroImg(game.storyLine)">
-            </md-grid-tile>
-            <md-grid-tile [colspan]="6" [rowspan]="1">
-                <button md-raised-button (click)="moreDetails(game)">More Details</button>
-                <button md-raised-button (click)="play(game)">Play</button>                
-            </md-grid-tile>
-        </md-grid-list>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="6" [rowspan]="1">
+                <button mat-raised-button (click)="moreDetails(game)">More Details</button>
+                <button mat-raised-button (click)="play(game)">Play</button>                
+            </mat-grid-tile>
+        </mat-grid-list>
     </div>
 </div>
 
-<md-progress-spinner *ngIf="loading" class="spinner" mode=indeterminate></md-progress-spinner>
+<mat-progress-spinner *ngIf="loading" class="spinner" mode=indeterminate></mat-progress-spinner>

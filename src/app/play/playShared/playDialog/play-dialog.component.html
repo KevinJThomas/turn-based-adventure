@@ -3,9 +3,9 @@
 </div>
 
 <div class="button-row">
-    <button md-button [disabled]="buttonsDisabled || firstPage" (click)="previousPage()" class="nav-button">Previous</button>
-    <button md-button *ngIf="!lastPage" [disabled]="buttonsDisabled" (click)="nextPage()" class="nav-button">Next</button>
-    <button md-button *ngIf="lastPage" [disabled]="buttonsDisabled" md-dialog-close class="nav-button">Close</button>
+    <button mat-button [disabled]="buttonsDisabled || firstPage" (click)="previousPage()" class="nav-button">Previous</button>
+    <button mat-button *ngIf="!lastPage" [disabled]="buttonsDisabled" (click)="nextPage()" class="nav-button">Next</button>
+    <button mat-button *ngIf="lastPage" [disabled]="buttonsDisabled" mat-dialog-close class="nav-button">Close</button>
 </div>
 
-<button md-button class="skip-button" md-dialog-close>skip</button>
+<button mat-button class="skip-button" mat-dialog-close>skip</button>

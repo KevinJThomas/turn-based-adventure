@@ -2,19 +2,19 @@
 
 <div *ngIf="!loading">
     <div class="hero-title">Team</div>
-    <md-list class="hero-list">
-        <md-list-item *ngFor="let hero of heroes" class="hero-item">
+    <mat-list class="hero-list">
+        <mat-list-item *ngFor="let hero of heroes" class="hero-item">
             <span class="hero-name" (click)="openHeroDialog(hero)">Lvl {{hero.level}} {{hero.name}}</span>
-            <md-progress-bar class="xp-bar" [value]=hero.xpBarPercent></md-progress-bar>
+            <mat-progress-bar class="xp-bar" [value]=hero.xpBarPercent></mat-progress-bar>
             <span class="xp-text">({{hero.xp}}/{{hero.nextLevel}})</span>
-            <i class="material-icons stat-points" *ngIf="hero.statPoints > 0" mdTooltip="Stat points available!" mdTooltipPosition="right" (click)="editHero(hero)">
+            <i class="material-icons stat-points" *ngIf="hero.statPoints > 0" matTooltip="Stat points available!" matTooltipPosition="right" (click)="editHero(hero)">
                 whatshot
             </i>
-        </md-list-item>
-    </md-list>
+        </mat-list-item>
+    </mat-list>
 
     <div class="hero-title">Location</div>
     <div class="location">{{theGame.location}}</div>
 </div>
 
-<md-progress-spinner *ngIf="loading" class="spinner" mode=indeterminate></md-progress-spinner>
+<mat-progress-spinner *ngIf="loading" class="spinner" mode=indeterminate></mat-progress-spinner>

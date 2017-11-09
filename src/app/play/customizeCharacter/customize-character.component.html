@@ -1,36 +1,36 @@
 <app-nav-bar></app-nav-bar>
 
-<md-card class="customize-card" *ngIf="!loading">
-    <md-toolbar class="customize-toolbar">
+<mat-card class="customize-card" *ngIf="!loading">
+    <mat-toolbar class="customize-toolbar">
         <span class="customize-title">{{heroName}}</span>
-    </md-toolbar>
-    <md-card-content>
-        <md-input-container class="story-name">
-            <input mdInput placeholder="Story Name" id="storyName" [(ngModel)]="storyName" name="storyName" required #sn="ngModel">
-        </md-input-container> 
+    </mat-toolbar>
+    <mat-card-content>
+        <mat-input-container class="story-name">
+            <input matInput placeholder="Story Name" id="storyName" [(ngModel)]="storyName" name="storyName" required #sn="ngModel">
+        </mat-input-container> 
         <div class="stat-label">Stamina: {{stamina}}</div>
-        <a md-mini-fab class="stat-button" (click)="decreaseStamina()"><i class="material-icons">remove</i></a>
-        <a md-mini-fab class="stat-button" (click)="increaseStamina()"><i class="material-icons">add</i></a>
+        <a mat-mini-fab class="stat-button" (click)="decreaseStamina()"><i class="material-icons">remove</i></a>
+        <a mat-mini-fab class="stat-button" (click)="increaseStamina()"><i class="material-icons">add</i></a>
         <div class="stat-label">Strength: {{strength}}</div>
-        <a md-mini-fab class="stat-button" (click)="decreaseStrength()"><i class="material-icons">remove</i></a>
-        <a md-mini-fab class="stat-button" (click)="increaseStrength()"><i class="material-icons">add</i></a>
+        <a mat-mini-fab class="stat-button" (click)="decreaseStrength()"><i class="material-icons">remove</i></a>
+        <a mat-mini-fab class="stat-button" (click)="increaseStrength()"><i class="material-icons">add</i></a>
         <div class="stat-label">Agility: {{agility}}</div>
-        <a md-mini-fab class="stat-button" (click)="decreaseAgility()"><i class="material-icons">remove</i></a>
-        <a md-mini-fab class="stat-button" (click)="increaseAgility()"><i class="material-icons">add</i></a>
+        <a mat-mini-fab class="stat-button" (click)="decreaseAgility()"><i class="material-icons">remove</i></a>
+        <a mat-mini-fab class="stat-button" (click)="increaseAgility()"><i class="material-icons">add</i></a>
         <div class="stat-label">Magic: {{magic}}</div>
-        <a md-mini-fab class="stat-button" (click)="decreaseMagic()"><i class="material-icons">remove</i></a>
-        <a md-mini-fab class="stat-button" (click)="increaseMagic()"><i class="material-icons">add</i></a>
+        <a mat-mini-fab class="stat-button" (click)="decreaseMagic()"><i class="material-icons">remove</i></a>
+        <a mat-mini-fab class="stat-button" (click)="increaseMagic()"><i class="material-icons">add</i></a>
         <div class="stat-label">Energy: {{energy}}</div>
-        <a md-mini-fab class="stat-button" (click)="decreaseEnergy()"><i class="material-icons">remove</i></a>
-        <a md-mini-fab class="stat-button" (click)="increaseEnergy()"><i class="material-icons">add</i></a> 
+        <a mat-mini-fab class="stat-button" (click)="decreaseEnergy()"><i class="material-icons">remove</i></a>
+        <a mat-mini-fab class="stat-button" (click)="increaseEnergy()"><i class="material-icons">add</i></a> 
         <div class="available-points">Remaining points: {{availablePoints}}</div>
-    </md-card-content>
-    <md-card-actions>
+    </mat-card-content>
+    <mat-card-actions>
         <div class="button-row">                
-            <button md-raised-button class="customize-button" [disabled]="availablePoints > 0 || !storyName || storyName.length < 1" (click)="create()">Create</button>
-            <button md-raised-button class="customize-button" (click)="cancel()">Cancel</button>            
+            <button mat-raised-button class="customize-button" [disabled]="availablePoints > 0 || !storyName || storyName.length < 1" (click)="create()">Create</button>
+            <button mat-raised-button class="customize-button" (click)="cancel()">Cancel</button>            
         </div>
-    </md-card-actions>
-</md-card>
+    </mat-card-actions>
+</mat-card>
 
-<md-progress-spinner *ngIf="loading" class="spinner" mode=indeterminate></md-progress-spinner>
+<mat-progress-spinner *ngIf="loading" class="spinner" mode=indeterminate></mat-progress-spinner>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { Dialogs } from './play.dialogs';
 import { Heroes } from '../../shared/app.heroes';
@@ -27,7 +27,7 @@ export class PlayService {
     storyLine: number;
     userId: string;
 
-    constructor(private scenarios: Scenarios, private dialog: MdDialog, private appSVC: AppService, private abilities: Abilities, private dialogs: Dialogs) {
+    constructor(private scenarios: Scenarios, private dialog: MatDialog, private appSVC: AppService, private abilities: Abilities, private dialogs: Dialogs) {
         this.getId();
     }
 
@@ -954,7 +954,7 @@ export class PlayService {
     }
 
     openDialog(pages: string[]): Observable<boolean> {
-        let dialogRef: MdDialogRef<PlayDialogComponent>;
+        let dialogRef: MatDialogRef<PlayDialogComponent>;
 
         dialogRef = this.dialog.open(PlayDialogComponent);
         dialogRef.disableClose = true;
@@ -965,7 +965,7 @@ export class PlayService {
     }
 
     openHeroDialog(hero: any): Observable<boolean> {
-        let dialogRef: MdDialogRef<HeroDialogComponent>;
+        let dialogRef: MatDialogRef<HeroDialogComponent>;
 
         dialogRef = this.dialog.open(HeroDialogComponent);
         dialogRef.updateSize('500px', '300px');
@@ -975,7 +975,7 @@ export class PlayService {
     }
 
     openLevelUpDialog(hero: any, gameId: string, leveledUp = true): Observable<boolean> {
-        let dialogRef: MdDialogRef<LevelUpDialogComponent>;
+        let dialogRef: MatDialogRef<LevelUpDialogComponent>;
 
         dialogRef = this.dialog.open(LevelUpDialogComponent);
         dialogRef.disableClose = true;

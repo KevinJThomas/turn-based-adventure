@@ -1,20 +1,20 @@
 <form>
-    <md-card class="login-card">        
-        <md-toolbar>
+    <mat-card class="login-card">        
+        <mat-toolbar>
             <span class="login-title">Login</span>
-        </md-toolbar>
-        <md-card-content>
-            <md-input-container class="input-boxes">
-                <input mdInput placeholder="Email" id="email" [(ngModel)]="email" name="email" required #em="ngModel">
-            </md-input-container>      
+        </mat-toolbar>
+        <mat-card-content>
+            <mat-input-container class="input-boxes">
+                <input matInput placeholder="Email" id="email" [(ngModel)]="email" name="email" required #em="ngModel">
+            </mat-input-container>      
             <br>
-            <md-input-container class="input-boxes">
-                <input mdInput type="password" placeholder="Password" id="password" [(ngModel)]="password" name="password" required #pw1="ngModel">          
-            </md-input-container>
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button class="submit-button" (click)="login()" type="submit">Login</button>            
-        </md-card-actions>        
-    </md-card>
+            <mat-input-container class="input-boxes">
+                <input matInput type="password" placeholder="Password" id="password" [(ngModel)]="password" name="password" required #pw1="ngModel">          
+            </mat-input-container>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button class="submit-button" (click)="login()" type="submit">Login</button>            
+        </mat-card-actions>        
+    </mat-card>
 </form>
-<button md-button class="register-button" (click)="register()" type="submit">Create New Account</button>
+<button mat-button class="register-button" (click)="register()" type="submit">Create New Account</button>

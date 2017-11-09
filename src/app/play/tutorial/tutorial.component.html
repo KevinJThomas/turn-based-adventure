@@ -16,7 +16,7 @@
     </div>
     
     <textarea readonly class="play-by-play">{{theGame.playByPlay}}</textarea>
-    <button md-button class="clear-button" (click)="clearLog()">clear log</button>
+    <button mat-button class="clear-button" (click)="clearLog()">clear log</button>
 
     <div class="player-heroes">
         <div *ngFor="let thisHero of theGame.player" class="player-hero">
@@ -29,27 +29,27 @@
             <div class="stats" [style.color]="getEnergyColor(thisHero)">
                 E: {{thisHero.currentEnergy}} / {{thisHero.maxEnergy}}
             </div>
-            <md-select placeholder="Select an Action" class="player-abilities" *ngIf="turnActive" [disabled]="disableButtons || !thisHero.alive || thisHero.frozen">
-                <md-option *ngFor="let ability of thisHero.abilities" [value]="ability" 
+            <mat-select placeholder="Select an Action" class="player-abilities" *ngIf="turnActive" [disabled]="disableButtons || !thisHero.alive || thisHero.frozen">
+                <mat-option *ngFor="let ability of thisHero.abilities" [value]="ability" 
                 (click)="abilitySelected(thisHero, ability)" [disabled]="ability.cost > thisHero.currentEnergy">
                     {{ability.name}} ({{ability.cost}})
-                </md-option>
-            </md-select>
-            <md-select [disabled]="!thisHero.targetableAbilitySet || disableButtons" placeholder="Select a Target" class="player-abilities"
+                </mat-option>
+            </mat-select>
+            <mat-select [disabled]="!thisHero.targetableAbilitySet || disableButtons" placeholder="Select a Target" class="player-abilities"
                 *ngIf="turnActive && !thisHero.friendlyTargetableAbilitySet">   
-                <md-option *ngFor="let target of theGame.enemy" [value]="target" (click)="setReady(thisHero, target)" [disabled]="!target.alive">
+                <mat-option *ngFor="let target of theGame.enemy" [value]="target" (click)="setReady(thisHero, target)" [disabled]="!target.alive">
                     {{target.name}}
-                </md-option>
-            </md-select>
-            <md-select [disabled]="!thisHero.friendlyTargetableAbilitySet || disableButtons" placeholder="Select a Target" class="player-abilities"
+                </mat-option>
+            </mat-select>
+            <mat-select [disabled]="!thisHero.friendlyTargetableAbilitySet || disableButtons" placeholder="Select a Target" class="player-abilities"
                 *ngIf="turnActive && thisHero.friendlyTargetableAbilitySet">   
-                <md-option *ngFor="let target of theGame.player" [value]="target" (click)="setReady(thisHero, target)" [disabled]="!target.alive">
+                <mat-option *ngFor="let target of theGame.player" [value]="target" (click)="setReady(thisHero, target)" [disabled]="!target.alive">
                     {{target.name}}
-                </md-option>
-            </md-select>
+                </mat-option>
+            </mat-select>
         </div>
     </div>    
-    <button [disabled]="ready === false ? true : null" md-button class="battle-button" (click)="executeTurn()">Battle!</button>
+    <button [disabled]="ready === false ? true : null" mat-button class="battle-button" (click)="executeTurn()">Battle!</button>
 </div>
 
 <div class="game-over" [ngSwitch]="isBattleFinished">
@@ -59,4 +59,4 @@
     <h1 *ngSwitchCase="3">Game Over</h1>
 </div>
 
-<button md-raised-button class="continue-button" *ngIf="isBattleFinished != 0" (click)="continue()">Continue</button>
+<button mat-raised-button class="continue-button" *ngIf="isBattleFinished != 0" (click)="continue()">Continue</button>
