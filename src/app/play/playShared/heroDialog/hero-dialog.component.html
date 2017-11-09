@@ -1,9 +1,9 @@
 <h2 class="hero-name">{{hero.name}}</h2>
 
-<md-list>
-    <md-list-item *ngFor="let ability of hero.abilityList">
-        <span class="ability-description" mdTooltip="{{ability.description}}">{{ability.name}}</span>
+<mat-list>
+    <mat-list-item *ngFor="let ability of hero.abilityList">
+        <span class="ability-description" matTooltip="{{ability.description}}">{{ability.name}}</span>
         <span class="ability-description">Power: {{ability.power | twodigit}}</span>
         <span class="ability-description">Energy: {{ability.cost | twodigit}}</span>
-    </md-list-item>
-</md-list>
+    </mat-list-item>
+</mat-list>

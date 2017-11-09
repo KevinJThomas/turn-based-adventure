@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 import { PlayService } from '../play.service';
 
@@ -10,5 +10,5 @@ import { PlayService } from '../play.service';
 export class HeroDialogComponent {
     hero: any;
 
-    constructor(private dialogRef: MdDialogRef<HeroDialogComponent>) {}
+    constructor(private dialogRef: MatDialogRef<HeroDialogComponent>) {}
 }

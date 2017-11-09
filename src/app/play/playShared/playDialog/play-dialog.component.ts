@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 import { PlayService } from '../play.service';
 
@@ -15,7 +15,7 @@ export class PlayDialogComponent implements OnInit {
     firstPage = true;
     buttonsDisabled = false;
 
-    constructor(private dialogRef: MdDialogRef<PlayDialogComponent>) {}
+    constructor(private dialogRef: MatDialogRef<PlayDialogComponent>) {}
 
     ngOnInit() {
         this.writeText(this.dialogPages[0]);

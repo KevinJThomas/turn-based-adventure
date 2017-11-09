@@ -1,22 +1,22 @@
 <app-nav-bar></app-nav-bar>
 
 <div *ngIf="isDataAvailable">
-    <md-list class="options-list">
-        <md-list-item>
+    <mat-list class="options-list">
+        <mat-list-item>
             <h3>Sound</h3>
-        </md-list-item>
-        <md-list-item>
-            <md-checkbox [(ngModel)]=theUser.muteSound>Mute Sound</md-checkbox>
-        </md-list-item>
-        <md-list-item>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-checkbox [(ngModel)]=theUser.muteSound>Mute Sound</mat-checkbox>
+        </mat-list-item>
+        <mat-list-item>
             <h3>Gameplay</h3>
-        </md-list-item>
-        <md-list-item>
-            <md-checkbox [(ngModel)]=theUser.showNameplates>Show Nameplates</md-checkbox>
-        </md-list-item>
-    </md-list>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-checkbox [(ngModel)]=theUser.showNameplates>Show Nameplates</mat-checkbox>
+        </mat-list-item>
+    </mat-list>
     <div class="button-div">
-        <button md-raised-button class="options-button" (click)="apply()">Apply</button>
-        <button md-raised-button class="options-button" (click)="cancel()">Cancel</button>
+        <button mat-raised-button class="options-button" (click)="apply()">Apply</button>
+        <button mat-raised-button class="options-button" (click)="cancel()">Cancel</button>
     </div>
 </div>

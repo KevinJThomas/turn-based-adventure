@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-    MdButtonModule,
-    MdInputModule,
-    MdCardModule,
-    MdToolbarModule,
-    MdSelectModule,
-    MdDialogModule,
-    MdListModule,
-    MdTooltipModule,
-    MdProgressSpinnerModule,
-    MdGridListModule,
-    MdProgressBarModule
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatListModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatGridListModule,
+    MatProgressBarModule
   } from '@angular/material';
 
 import { NavComponent } from '../shared/navbar/navbar.component';
@@ -61,17 +61,17 @@ const PlayRoutes: Routes = [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MdButtonModule,
-        MdInputModule,
-        MdCardModule,
-        MdToolbarModule,
-        MdSelectModule,
-        MdDialogModule,
-        MdListModule,
-        MdTooltipModule,
-        MdProgressSpinnerModule,
-        MdGridListModule,
-        MdProgressBarModule,
+        MatButtonModule,
+        MatInputModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatListModule,
+        MatTooltipModule,
+        MatProgressSpinnerModule,
+        MatGridListModule,
+        MatProgressBarModule,
         RouterModule.forChild(PlayRoutes)
     ],
     exports: [

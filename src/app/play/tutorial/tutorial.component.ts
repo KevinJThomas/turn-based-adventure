@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { Heroes } from '../../shared/app.heroes';
@@ -25,7 +25,7 @@ export class TutorialComponent implements OnInit, OnDestroy {
     stage = 0;
     disableButtons = false;
 
-    constructor(private playSVC: PlayService, private dialog: MdDialog, private dialogs: Dialogs, private router: Router) {
+    constructor(private playSVC: PlayService, private dialog: MatDialog, private dialogs: Dialogs, private router: Router) {
         this.playSVC.openDialog(this.dialogs.tutorialIntro());
     }
 

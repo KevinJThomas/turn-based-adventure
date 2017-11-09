@@ -1,32 +1,32 @@
 <form>
-    <md-card class="login-card">
-        <md-toolbar>
+    <mat-card class="login-card">
+        <mat-toolbar>
             <span class="login-title">Register</span>
-        </md-toolbar>
-        <md-card-content>
-            <md-input-container class="input-boxes">
-                <input mdInput placeholder="Username" id="nickname" [(ngModel)]="nickname" name="nickname" required #nn="ngModel">
-            </md-input-container>
-            <md-input-container class="input-boxes">
-                <input mdInput placeholder="Email Address" id="email" [(ngModel)]="email" name="email" required #em="ngModel">
-            </md-input-container>
+        </mat-toolbar>
+        <mat-card-content>
+            <mat-input-container class="input-boxes">
+                <input matInput placeholder="Username" id="nickname" [(ngModel)]="nickname" name="nickname" required #nn="ngModel">
+            </mat-input-container>
+            <mat-input-container class="input-boxes">
+                <input matInput placeholder="Email Address" id="email" [(ngModel)]="email" name="email" required #em="ngModel">
+            </mat-input-container>
             <br>
-            <md-input-container class="input-boxes">
-                <input mdInput type="password" placeholder="Password" id="password" [(ngModel)]="password" name="password" required #pw1="ngModel">          
-            </md-input-container>
+            <mat-input-container class="input-boxes">
+                <input matInput type="password" placeholder="Password" id="password" [(ngModel)]="password" name="password" required #pw1="ngModel">          
+            </mat-input-container>
             <br>
-            <md-input-container class="input-boxes">
-                <input mdInput type="password" placeholder="Confirm Password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required #pw2="ngModel">          
-            </md-input-container>
+            <mat-input-container class="input-boxes">
+                <input matInput type="password" placeholder="Confirm Password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required #pw2="ngModel">          
+            </mat-input-container>
             <div *ngIf="passwordFail" class="alert callout">
                 Passwords must match
             </div>
-        </md-card-content>
-        <md-card-actions>
+        </mat-card-content>
+        <mat-card-actions>
             <div class="button-row">                
-                <button md-raised-button class="register-button" (click)="register()">Register</button>
-                <button md-raised-button class="register-button" (click)="cancel()">Cancel</button>            
+                <button mat-raised-button class="register-button" (click)="register()">Register</button>
+                <button mat-raised-button class="register-button" (click)="cancel()">Cancel</button>            
             </div>
-        </md-card-actions>  
-    </md-card>
+        </mat-card-actions>  
+    </mat-card>
 </form>
